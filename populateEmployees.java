@@ -2,7 +2,7 @@ import java.sql.*;
 import java.io.*;
 import java.util.Scanner;
 
-public class populateProducts {
+public class populateEmployees {
 
     public static void main(String args[]) {
         Connection conn = null;
@@ -24,20 +24,17 @@ public class populateProducts {
 
         try {
             Statement stmt = conn.createStatement();
-            File file = new File("products.csv");
+            File file = new File("employees.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();
             String delimiter = ",";
             String[] colValues;
 
-            String sqlStatement = "DROP TABLE products";
+            String sqlStatement = "CREATE TABLE IF NOT EXISTS employees (employeeID INT, employeeName VARCHAR, accountabilityYTD MONEY, isManager BOOL)";
             stmt.execute(sqlStatement);
 
-            sqlStatement = "CREATE TABLE products (productName VARCHAR, productID INT PRIMARY KEY, orderPrice MONEY, sellPrice MONEY, currentStock FLOAT, desiredStock FLOAT, quantitySoldYTD FLOAT)";
-            stmt.execute(sqlStatement);
-
-            sqlStatement = "GRANT ALL ON products TO csce315950_preston";
+            sqlStatement = "GRANT ALL ON employees TO csce315950_preston";
             sqlStatement = "GRANT ALL ON products TO csce315950_ethan";
             sqlStatement = "GRANT ALL ON products TO csce315950_cyrus";
             sqlStatement = "GRANT ALL ON products TO csce315950_rob";
@@ -45,8 +42,8 @@ public class populateProducts {
 
             while (line != null) {
                 colValues = line.split(delimiter);
-                sqlStatement = "INSERT INTO products (productName, productID, orderPrice, sellPrice, currentStock, desiredStock, quantitySoldYTD) VALUES(";
-                sqlStatement += "'" + colValues[0] + "', '" + colValues[1] + "', '" + colValues[2] + "', '" + colValues[3] + "', '" + colValues[4] + "', '" + colValues[5] + "', '" + colValues[6] + "')";
+                sqlStatement = "INSERT INTO employees (employeeID INT, employeeName VARCHAR, accountabilityYTD MONEY, isManager BOOL) VALUES(";
+                sqlStatement += "'" + colValues[0] + "', '" + colValues[1] + "', '" + colValues[2] + "', '" + colValues[3] + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }
