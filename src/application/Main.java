@@ -17,25 +17,20 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			//create root stage and scene
-			
-			Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
+			//create root stage and scene			
+			Parent root = FXMLLoader.load(getClass().getResource("homePageGUI.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			//Button cashierButton = new Button("Cashier APP Launch");
-			//root.getChildren().add(cashierButton);
-			
 			//running stage 
-			primaryStage.setTitle("User Select");
-	
+			primaryStage.setTitle("User Select");	
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static void main(String[] args) {
         // build connection with credentials
