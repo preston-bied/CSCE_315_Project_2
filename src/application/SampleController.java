@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -27,7 +26,7 @@ public class SampleController {
 	ArrayList<Button> buttons;
 	
 	public void cashierLaunch(ActionEvent event) throws IOException {
-		BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("cashierScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("cashierScene.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
