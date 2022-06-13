@@ -40,7 +40,7 @@ public class populateSaleLineItems {
             stmt.execute(sqlStatement);
 
             // statement to create table
-            sqlStatement = "CREATE TABLE saleLineItems (saleLineID INT PRIMARY KEY, saleInvoiceID INT, productID INT, employeeID INT, quantitySold FLOAT, FOREIGN KEY (saleInvoiceID) REFERENCES saleInvoiceHistory(saleInvoiceID), FOREIGN KEY (productID) REFERENCES products(productID))";
+            sqlStatement = "CREATE TABLE saleLineItems (saleLineID INT PRIMARY KEY, saleInvoiceID INT, productID INT, quantitySold FLOAT, FOREIGN KEY (saleInvoiceID) REFERENCES saleInvoiceHistory(saleInvoiceID), FOREIGN KEY (productID) REFERENCES products(productID))";
             stmt.execute(sqlStatement);
 
             // statements to grant permissions to all team members
@@ -52,6 +52,8 @@ public class populateSaleLineItems {
             stmt.execute(sqlStatement);
             sqlStatement = "GRANT ALL ON saleLineItems TO csce315950_rob";
             stmt.execute(sqlStatement);
+            sqlStatement = "GRANT ALL ON saleLineItems TO csce315950_2user";
+            stmt.execute(sqlStatement);
 
             // loop through each line of the csv file and add row of items
             while (line != null) {
@@ -59,11 +61,10 @@ public class populateSaleLineItems {
                 String saleLineID = colValues[0];
                 String saleInvoiceID = colValues[1];
                 String productID = colValues[2];
-                String employeeID = colValues[3];
-                String quantitySold = colValues[4];
+                String quantitySold = colValues[3];
 
-                sqlStatement = "INSERT INTO saleLineItems (saleLineID, saleInvoiceID, productID, employeeID, quantitySold) VALUES(";
-                sqlStatement += "'" + saleLineID + "', '" + saleInvoiceID + "', '" + productID + "', '" + employeeID + "', '" + quantitySold + "')";
+                sqlStatement = "INSERT INTO saleLineItems (saleLineID, saleInvoiceID, productID, quantitySold) VALUES(";
+                sqlStatement += "'" + saleLineID + "', '" + saleInvoiceID + "', '" + productID + "', '" + quantitySold + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }

@@ -40,7 +40,7 @@ public class populateOrderLineItems {
             // stmt.execute(sqlStatement);
 
             // statement to create table
-            String sqlStatement = "CREATE TABLE orderLineItems (orderLineID INT PUBLIC KEY, orderInvoiceID INT, productID INT, employeeID INT, quantityOrdered FLOAT, FOREIGN KEY (orderInvoiceID) REFERENCES orderInvoiceHistory(orderInvoiceID), FOREIGN KEY (productID) REFERENCES products(productID))";
+            String sqlStatement = "CREATE TABLE orderLineItems (orderLineID INT PUBLIC KEY, orderInvoiceID INT, productID INT, quantityOrdered FLOAT, FOREIGN KEY (orderInvoiceID) REFERENCES orderInvoiceHistory(orderInvoiceID), FOREIGN KEY (productID) REFERENCES products(productID))";
             stmt.execute(sqlStatement);
 
             // statements to grant permissions to all team members
@@ -52,6 +52,8 @@ public class populateOrderLineItems {
             stmt.execute(sqlStatement);
             sqlStatement = "GRANT ALL ON orderLineItems TO csce315950_rob";
             stmt.execute(sqlStatement);
+            sqlStatement = "GRANT ALL ON orderLineItems TO csce315950_2user";
+            stmt.execute(sqlStatement);
 
             // loop through each line of the csv file and add row of items
             while (line != null) {
@@ -59,11 +61,10 @@ public class populateOrderLineItems {
                 String orderLineID = colValues[0];
                 String orderInvoiceID = colValues[1];
                 String productID = colValues[2];
-                String employeeID = colValues[3];
-                String quantityOrdered = colValues[4];
+                String quantityOrdered = colValues[3];
 
-                sqlStatement = "INSERT INTO orderLineItems (orderLineID, orderInvoiceID, productID, employeeID, quantityOrdered) VALUES(";
-                sqlStatement += "'" + orderLineID + "', '" + orderInvoiceID + "', '" + productID + "', '" + employeeID + "', '" + quantityOrdered + "')";
+                sqlStatement = "INSERT INTO orderLineItems (orderLineID, orderInvoiceID, productID, quantityOrdered) VALUES(";
+                sqlStatement += "'" + orderLineID + "', '" + orderInvoiceID + "', '" + productID + "', '" + quantityOrdered + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }
