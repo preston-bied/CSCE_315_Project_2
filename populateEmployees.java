@@ -40,7 +40,7 @@ public class populateEmployees {
             // stmt.execute(sqlStatement);
 
             // statement to create table
-            String sqlStatement = "CREATE TABLE employees (employeeID INT PRIMARY KEY, employeeName VARCHAR, accountabilityYTD MONEY, isManager BOOL)";
+            String sqlStatement = "CREATE TABLE employees (employeeID INT PRIMARY KEY, employeeName VARCHAR, isManager BOOL)";
             stmt.execute(sqlStatement);
 
             // statements to grant permissions to all team members
@@ -52,17 +52,18 @@ public class populateEmployees {
             stmt.execute(sqlStatement);
             sqlStatement = "GRANT ALL ON employees TO csce315950_rob";
             stmt.execute(sqlStatement);
+            sqlStatement = "GRANT ALL ON employees TO csce315950_2user";
+            stmt.execute(sqlStatement);
 
             // loop through each line of the csv file and add row of items
             while (line != null) {
                 colValues = line.split(delimiter);
                 String employeeID = colValues[0];
                 String employeeName = colValues[1];
-                String accountabilityYTD = colValues[2];
-                String isManager = colValues[3];
+                String isManager = colValues[2];
 
-                sqlStatement = "INSERT INTO employees (employeeID, employeeName, accountabilityYTD, isManager) VALUES(";
-                sqlStatement += "'" + employeeID + "', '" + employeeName + "', '" + accountabilityYTD + "', '" + isManager + "')";
+                sqlStatement = "INSERT INTO employees (employeeID, employeeName, isManager) VALUES(";
+                sqlStatement += "'" + employeeID + "', '" + employeeName + "', '" + isManager + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }
