@@ -32,63 +32,63 @@ public class queries {
             while (result.next()) {
                 System.out.println(result.getString("saleDate"));
             }
-            /*
+            
             sqlStatement = "SELECT AVG( saleTotalCost::numeric ) FROM saleInvoiceHistory WHERE (saleDate > '2022-05-18')";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result.getString("saleTotalCost"));
+                System.out.println(result.getString("avg"));
             }
-            */
+            
             sqlStatement = "SELECT SUM( saleTotalCost ) FROM saleInvoiceHistory WHERE (saleDate > '2022-05-18')";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result.getString("saleTotalCost"));
+                System.out.println(result.getString("sum"));
             }
-            /*
+            
             sqlStatement = "SELECT MAX (saleTotalCost ) FROM saleInvoiceHistory WHERE (saleDate > '2021-05-25')";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("max"));
             }
 
             sqlStatement = "SELECT MIN (saleTotalCost ) FROM saleInvoiceHistory WHERE (saleDate > '2022-05-18')";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("min"));
             }
 
             sqlStatement = "SELECT productID, currentStock FROM products WHERE (currentStock < desiredStock)";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("productID") + "   " + result.getString("currentStock"));
             }
 
             sqlStatement = "SELECT productID, currentStock FROM products WHERE (currentStock > desiredStock)";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("productID") + "   " + result.getString("currentStock"));
             }
 
             sqlStatement = "SELECT employeeID FROM employees WHERE (isManager = false)";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("employeeID"));
             }
 
             sqlStatement = "SELECT employeeID FROM employees WHERE (isManager = true)";
             System.out.println(sqlStatement);
             result = stmt.executeQuery(sqlStatement);
             while (result.next()) {
-                System.out.println(result);
+                System.out.println(result.getString("employeeID"));
             }
-            
+            /*
             sqlStatement = "INSERT INTO products (productName, productID, orderPrice, sellPrice, currentStock, desiredStock) VALUES ('porkBrain', 3019, 0.99, 2.99, 5, 5)";
             System.out.println(sqlStatement);
             int result2 = stmt.executeUpdate(sqlStatement);
