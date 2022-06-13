@@ -36,11 +36,11 @@ public class populateSaleInvoiceHistory {
             String[] colValues;
 
             // statement to drop old table
-            String sqlStatement = "DROP TABLE saleInvoiceHistory";
-            stmt.execute(sqlStatement);
+            // String sqlStatement = "DROP TABLE saleInvoiceHistory";
+            // stmt.execute(sqlStatement);
 
             // statement to create table
-            sqlStatement = "CREATE TABLE saleInvoiceHistory (saleInvoiceID INT PRIMARY KEY, saleDate DATE, saleTotalCost MONEY)";
+            String sqlStatement = "CREATE TABLE saleInvoiceHistory (saleInvoiceID INT PRIMARY KEY, saleDate DATE, saleTotalCost MONEY, employeeID INT)";
             stmt.execute(sqlStatement);
 
             // statements to grant permissions to all team members
@@ -52,6 +52,8 @@ public class populateSaleInvoiceHistory {
             stmt.execute(sqlStatement);
             sqlStatement = "GRANT ALL ON saleInvoiceHistory TO csce315950_rob";
             stmt.execute(sqlStatement);
+            sqlStatement = "GRANT ALL ON saleInvoiceHistory TO csce315950_2user";
+            stmt.execute(sqlStatement);
 
             // loop through each line of the csv file and add row of items
             while (line != null) {
@@ -59,9 +61,10 @@ public class populateSaleInvoiceHistory {
                 String saleInvoiceID = colValues[0];
                 String saleDate = colValues[1];
                 String saleTotalCost = colValues[2];
+                String employeeID = colValues[3];
 
-                sqlStatement = "INSERT INTO saleInvoiceHistory (saleInvoiceID, saleDate, saleTotalCost) VALUES(";
-                sqlStatement += "'" + saleInvoiceID + "', '" + saleDate + "', '" + saleTotalCost + "')";
+                sqlStatement = "INSERT INTO saleInvoiceHistory (saleInvoiceID, saleDate, saleTotalCost, employeeID) VALUES(";
+                sqlStatement += "'" + saleInvoiceID + "', '" + saleDate + "', '" + saleTotalCost + "', '" + employeeID + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }

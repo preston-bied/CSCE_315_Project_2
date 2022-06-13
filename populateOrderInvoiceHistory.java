@@ -40,7 +40,7 @@ public class populateOrderInvoiceHistory {
             // stmt.execute(sqlStatement);
 
             // statement to create table
-            String sqlStatement = "CREATE TABLE orderInvoiceHistory (orderInvoiceID INT PRIMARY KEY, orderDate DATE, orderTotalCost MONEY, distributorID INT)";
+            String sqlStatement = "CREATE TABLE orderInvoiceHistory (orderInvoiceID INT PRIMARY KEY, orderDate DATE, orderTotalCost MONEY, employeeID INT, distributorID INT)";
             stmt.execute(sqlStatement);
 
             // statements to grant permissions to all team members
@@ -59,10 +59,11 @@ public class populateOrderInvoiceHistory {
                 String orderInvoiceID = colValues[0];
                 String orderDate = colValues[1];
                 String orderTotalCost = colValues[2];
-                String distributorID = colValues[3];
+                String employeeID = colValues[3];
+                String distributorID = colValues[4];
 
-                sqlStatement = "INSERT INTO orderInvoiceHistory (orderInvoiceID, orderDate, orderTotalCost, distributorID) VALUES(";
-                sqlStatement += "'" + orderInvoiceID + "', '" + orderDate + "', '" + orderTotalCost + "', '" + distributorID + "')";
+                sqlStatement = "INSERT INTO orderInvoiceHistory (orderInvoiceID, orderDate, orderTotalCost, employeeID, distributorID) VALUES(";
+                sqlStatement += "'" + orderInvoiceID + "', '" + orderDate + "', '" + orderTotalCost + "', '" + employeeID + "', '" + distributorID + "')";
                 stmt.execute(sqlStatement);
                 line = bufferedReader.readLine();
             }
