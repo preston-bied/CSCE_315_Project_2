@@ -28,7 +28,7 @@ public class populateSaleLineItems {
             Statement stmt = conn.createStatement();
 
             // functionality to read csv files
-            File file = new File("saleLineItems.csv");
+            File file = new File("CSVs/saleLineItems.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();

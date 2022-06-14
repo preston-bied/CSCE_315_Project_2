@@ -28,7 +28,7 @@ public class populateProducts {
             Statement stmt = conn.createStatement();
 
             // functionality to read csv files
-            File file = new File("products.csv");
+            File file = new File("CSVs/products.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String delimiter = ",";

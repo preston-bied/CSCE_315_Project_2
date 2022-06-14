@@ -28,7 +28,7 @@ public class populateOrderInvoiceHistory {
             Statement stmt = conn.createStatement();
 
             // functionality to read csv files
-            File file = new File("orderInvoiceHistory.csv");
+            File file = new File("CSVs/orderInvoiceHistory.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();

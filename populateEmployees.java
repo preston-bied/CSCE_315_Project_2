@@ -28,7 +28,7 @@ public class populateEmployees {
             Statement stmt = conn.createStatement();
 
             // functionality to read csv files
-            File file = new File("employees.csv");
+            File file = new File("CSVs/employees.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();

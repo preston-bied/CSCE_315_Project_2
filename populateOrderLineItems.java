@@ -28,7 +28,7 @@ public class populateOrderLineItems {
             Statement stmt = conn.createStatement();
 
             // functionality to read csv files
-            File file = new File("orderLineItems.csv");
+            File file = new File("CSVs/orderLineItems.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();
