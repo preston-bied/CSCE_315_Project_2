@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -66,8 +67,12 @@ public class SampleController {
 	public String sale = "";
 	public Double saleTotal = 0.0;
 	public int currSaleInvoiceID = 0;
+	public int currLineItemID = 0;
 	public int employeeID = 1;
 	public String currDate = "2022-06-14";
+	public Vector<String> productIDs = new Vector<>();
+	public Vector<Integer> lineItemIDs = new Vector<>();
+	public Vector<Double> weights = new Vector<>();
 	
 	//button to launch cashier interface
 	public void cashierLaunch(ActionEvent event) throws IOException {
@@ -230,7 +235,9 @@ public class SampleController {
         dbSetup myCredentials = new dbSetup(); 
         
         String productID = addItemField.getText();
+        productIDs.addElement(productID);
         Double weight = Double.parseDouble( weightField.getText() );
+        weights.addElement(weight);
         String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
         
         try {
@@ -251,20 +258,25 @@ public class SampleController {
             DecimalFormat df = new DecimalFormat("#.##");
             df.format(totalPrice);
             saleTotal += totalPrice;
-            runningTotal.setText("$" + totalPrice);
+            runningTotal.setText("$" + saleTotal);
             sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
             statement.execute(sql);
             
             sale += productName + " | $" + totalPrice + "\n";
             saleItems.setText(sale);
             
-            sql = "SELECT MAX (saleLineID) FROM saleLineItems";
-            queryOutput = statement.executeQuery(sql);
-            String maxID = "";
-            while (queryOutput.next()) {
-            	maxID = queryOutput.getString("max");
+            if (currLineItemID == 0) {
+            	 sql = "SELECT MAX (saleLineID) FROM saleLineItems";
+                 queryOutput = statement.executeQuery(sql);
+              
+                 String maxID = "";
+                 while (queryOutput.next()) {
+                 	maxID = queryOutput.getString("max");
+                 }
+                 currLineItemID = Integer.parseInt(maxID);
             }
-            int newID = Integer.parseInt(maxID) + 1;
+            currLineItemID += 1;
+            lineItemIDs.addElement(currLineItemID);
             
             if (currSaleInvoiceID == 0) {
             	sql = "SELECT MAX (saleInvoiceID) FROM saleLineItems";
@@ -273,11 +285,9 @@ public class SampleController {
             	while (queryOutput.next()) {
             		maxSaleInvoiceID = queryOutput.getString("max");
             	}
-            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID);
+            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID) + 1;
+            	
             }
-            
-            sql = "INSERT INTO saleLineItems VALUES (" + newID + ", " + currSaleInvoiceID + ", " + productID + ", " + weight + ")";
-            statement.execute(sql);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -298,17 +308,28 @@ public class SampleController {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
             
             Statement statement = conn.createStatement();
-            String sql = "INSERT INTO saleInvoiceHistory VALUES (" + currSaleInvoiceID + ", " + currDate + ", " + saleTotal + ", " + employeeID + ")";
+            String sql = "INSERT INTO saleInvoiceHistory VALUES (" + currSaleInvoiceID + ", '" + currDate + "', '" + saleTotal + "', " + employeeID + ")";
             statement.execute(sql);
+            for (int i = 0; i < weights.size(); i++) {
+            	sql = "INSERT INTO saleLineItems VALUES (" + lineItemIDs.elementAt(i) + ", " + currSaleInvoiceID + ", " + productIDs.elementAt(i) + ", " + weights.elementAt(i) + ")";
+                statement.execute(sql);
+            }
             saleTotal = 0.0;
             currSaleInvoiceID = 0;
+            currLineItemID = 0;
             sale = "";
             saleItems.setText(sale);
+            lineItemIDs.clear();
+            productIDs.clear();
+            weights.clear();
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+        runningTotal.setText("0");
+        addItemField.setText("");
+        weightField.setText("");
 	}
 	
 	
