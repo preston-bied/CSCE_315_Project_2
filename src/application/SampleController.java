@@ -62,6 +62,7 @@ public class SampleController {
 	ArrayList<Button> buttons;
 	
 	public String sale = "";
+	public Double saleTotal = 0.0;
 	
 	//button to launch cashier interface
 	public void cashierLaunch(ActionEvent event) throws IOException {
@@ -242,6 +243,8 @@ public class SampleController {
             }
             
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+            sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
+            statement.execute(sql);
             
             sale += productName + " | $" + totalPrice + "\n";
             saleItems.setText(sale);
