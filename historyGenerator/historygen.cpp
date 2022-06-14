@@ -8,6 +8,11 @@
 #include "entityclasses.cpp"
 using namespace std;
 
+/*  
+    These history generator files are pretty poorly written,
+    mainly because I only intended to use them once to generate the csvs
+    and then not use them again.
+*/
 
 // Reused from one of my 313 assignments
 vector<string> split(string s, char delim) {
