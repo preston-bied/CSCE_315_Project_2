@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -54,6 +55,7 @@ public class SampleController {
 	@FXML private Label showProductPrice = new Label();
 	@FXML private Label showProductID = new Label();
 	@FXML private Label saleItems = new Label();
+	@FXML private Label runningTotal = new Label();
 	@FXML private TextField addItemField = new TextField();
 	@FXML private TextField weightField = new TextField();
 	@FXML private TableView<productDescription> tableDescription;
@@ -63,6 +65,9 @@ public class SampleController {
 	
 	public String sale = "";
 	public Double saleTotal = 0.0;
+	public int currSaleInvoiceID = 0;
+	public int employeeID = 1;
+	public String currDate = "2022-06-14";
 	
 	//button to launch cashier interface
 	public void cashierLaunch(ActionEvent event) throws IOException {
@@ -243,17 +248,67 @@ public class SampleController {
             }
             
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.format(totalPrice);
+            saleTotal += totalPrice;
+            runningTotal.setText("$" + totalPrice);
             sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
             statement.execute(sql);
             
             sale += productName + " | $" + totalPrice + "\n";
             saleItems.setText(sale);
+            
+            sql = "SELECT MAX (saleLineID) FROM saleLineItems";
+            queryOutput = statement.executeQuery(sql);
+            String maxID = "";
+            while (queryOutput.next()) {
+            	maxID = queryOutput.getString("max");
+            }
+            int newID = Integer.parseInt(maxID) + 1;
+            
+            if (currSaleInvoiceID == 0) {
+            	sql = "SELECT MAX (saleInvoiceID) FROM saleLineItems";
+            	queryOutput = statement.executeQuery(sql);
+            	String maxSaleInvoiceID = "";
+            	while (queryOutput.next()) {
+            		maxSaleInvoiceID = queryOutput.getString("max");
+            	}
+            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID);
+            }
+            
+            sql = "INSERT INTO saleLineItems VALUES (" + newID + ", " + currSaleInvoiceID + ", " + productID + ", " + weight + ")";
+            statement.execute(sql);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
         
+	}
+	
+	public void completeOrder( ActionEvent event ) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            String sql = "INSERT INTO saleInvoiceHistory VALUES (" + currSaleInvoiceID + ", " + currDate + ", " + saleTotal + ", " + employeeID + ")";
+            statement.execute(sql);
+            saleTotal = 0.0;
+            currSaleInvoiceID = 0;
+            sale = "";
+            saleItems.setText(sale);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
 	}
 	
 	

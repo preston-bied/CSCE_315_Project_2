@@ -35,6 +35,8 @@
       <TextField fx:id="weightField" layoutX="116.0" layoutY="159.0" prefHeight="25.0" prefWidth="65.0" />
       <Label fx:id="productID1" alignment="CENTER" layoutX="43.0" layoutY="140.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="ID" />
       <Label alignment="CENTER" layoutX="116.0" layoutY="140.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="weight" />
-      <Button fx:id="addItemButton1" layoutX="205.0" layoutY="460.0" mnemonicParsing="false" onAction="#addItem" text="Complete Order" />
+      <Button layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onAction="#completeOrder" text="Complete Order" />
+      <Label fx:id="runningTotal" alignment="CENTER" layoutX="187.0" layoutY="426.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" />
+      <Label fx:id="runningTotal1" alignment="CENTER" layoutX="187.0" layoutY="407.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" text="Total" />
    </children>
 </AnchorPane>
