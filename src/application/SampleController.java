@@ -49,7 +49,8 @@ public class SampleController {
 	@FXML private Button managerButton;
 	@FXML private Button logoutButton;
 	@FXML private AnchorPane scenePane;
-	@FXML private Label showChicken = new Label();
+	@FXML private Label showProductName = new Label();
+	@FXML private Label showProductPrice = new Label();
 	@FXML private TableView<productDescription> tableDescription;
 	@FXML private TableColumn<productDescription, String> col_name;
 	@FXML private TableColumn<productDescription, String> col_price;
@@ -77,31 +78,21 @@ public class SampleController {
         String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Chicken%' OR productName LIKE '%Chicken'";
         
         // connect to database
-        ObservableList<productDescription> list = FXCollections.observableArrayList();
         try {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
             
             Statement statement = conn.createStatement();
             ResultSet queryOutput = statement.executeQuery(sql);
-            String product = " ";
-            String price = " ";
+            String product = "";
+            String price = "";
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
             	String sellPrice = queryOutput.getString("sellPrice");
             	product += productName + "\n";
             	price += sellPrice + "\n";
-;            	 //System.out.println(queryOutput.getString("productName") + " " + queryOutput.getString("sellPrice"));
-            	//productDescription currProduct = new productDescription(productName, sellPrice);
-            	// list.add(new productDescription( queryOutput.getString("productName"), queryOutput.getString("sellPrice") ) );
-            	//System.out.println(currProduct.getProductName());
-            	//list.add(currProduct);
             }
-            showChicken.setText(product);
-//            col_name.setCellValueFactory(new PropertyValueFactory<productDescription,String> (currProduct.getProductName()));
-//            col_price.setCellValueFactory(new PropertyValueFactory<productDescription,String>(currProduct.getSalePrice()));
-
-           // tableDescription.setItems(list);
-           
+            showProductName.setText(product);
+            showProductPrice.setText(price);           
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -111,11 +102,72 @@ public class SampleController {
 	
 	//button to generate chicken products in cashier interface
 	public void cashierBeefQuery(ActionEvent event) throws IOException {
+		
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            String product = "";
+            String price = "";
+            while (queryOutput.next()) {
+            	String productName = queryOutput.getString("productName");
+            	String sellPrice = queryOutput.getString("sellPrice");
+            	product += productName + "\n";
+            	price += sellPrice + "\n";
+            }
+            showProductName.setText(product);
+            showProductPrice.setText(price);           
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
 
 	}	
 	//button to generate chicken products in cashier interface
-	public void cashierCLamnbQuery(ActionEvent event) throws IOException {
-
+	public void cashierPorkQuery(ActionEvent event) throws IOException {
+		
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            String product = "";
+            String price = "";
+            while (queryOutput.next()) {
+            	String productName = queryOutput.getString("productName");
+            	String sellPrice = queryOutput.getString("sellPrice");
+            	product += productName + "\n";
+            	price += sellPrice + "\n";
+            }
+            showProductName.setText(product);
+            showProductPrice.setText(price);           
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
 	}	
 	
 	//button to launch manager interface

@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -19,17 +17,14 @@
          <children>
             <Button layoutX="90.0" layoutY="28.0" mnemonicParsing="false" onAction="#cashierChickenQuery" text="Chicken" />
             <Button layoutX="259.0" layoutY="28.0" mnemonicParsing="false" onAction="#cashierBeefQuery" text="Beef" />
-            <Button layoutX="414.0" layoutY="28.0" mnemonicParsing="false" onAction="#cashierCLamnbQuery" text="Lamb" />
+            <Button layoutX="414.0" layoutY="28.0" mnemonicParsing="false" onAction="#cashierPorkQuery" text="Pork" />
             <Label layoutX="228.0" layoutY="6.0" text="select type of meat" />
          </children>
       </Pane>
       <Button fx:id="logoutButton" layoutX="559.0" layoutY="16.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="Logout" />
-      <TableView fx:id="tableDescription" layoutX="367.0" layoutY="154.0" prefHeight="329.0" prefWidth="244.0">
-        <columns>
-          <TableColumn fx:id="col_name" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="col_price" prefWidth="75.0" text="Sale Price" />
-        </columns>
-      </TableView>
-      <Label fx:id="showChicken" layoutX="135.0" layoutY="204.0" prefHeight="112.0" prefWidth="147.0" style="-fx-border-color: black;" text="Label" />
+      <Label fx:id="showProductName" alignment="CENTER" layoutX="408.0" layoutY="157.0" prefHeight="340.0" prefWidth="101.0" style="-fx-border-color: black;" text="no type selected" />
+      <Label fx:id="showProductPrice" alignment="CENTER" layoutX="509.0" layoutY="157.0" prefHeight="340.0" prefWidth="101.0" style="-fx-border-color: black;" text="no type selected" />
+      <Label fx:id="productLabel" alignment="CENTER" layoutX="408.0" layoutY="140.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="Items" />
+      <Label fx:id="productLabel1" alignment="CENTER" layoutX="509.0" layoutY="140.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="Prices" />
    </children>
 </AnchorPane>
