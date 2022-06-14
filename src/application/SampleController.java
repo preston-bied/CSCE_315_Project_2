@@ -57,9 +57,14 @@ public class SampleController {
 	@FXML private Label showProductPrice = new Label();
 	@FXML private Label showProductID = new Label();
 	@FXML private Label saleItems = new Label();
+	@FXML private Label orderItems = new Label();
 	@FXML private Label runningTotal = new Label();
+	@FXML private Label runningOrderTotal = new Label();
 	@FXML private TextField addItemField = new TextField();
 	@FXML private TextField weightField = new TextField();
+	@FXML private TextField orderIDField = new TextField();
+	@FXML private TextField orderWeightField = new TextField();
+	@FXML private TextField distributorField = new TextField();
 	@FXML private TableView<productDescription> tableDescription;
 	@FXML private TableColumn<productDescription, String> col_name;
 	@FXML private TableColumn<productDescription, String> col_price;
@@ -74,6 +79,17 @@ public class SampleController {
 	public Vector<String> productIDs = new Vector<>();
 	public Vector<Integer> lineItemIDs = new Vector<>();
 	public Vector<Double> weights = new Vector<>();
+	
+	public String order = "";
+	public Double orderTotal = 0.0;
+	public int currOrderInvoiceID = 0;
+	public int currOrderLineItemID = 0;
+	public int orderEmployeeID = 1;
+	public String currOrderDate = "2022-06-14";
+	public Vector<String> orderProductIDs = new Vector<>();
+	public Vector<Integer> orderLineItemIDs = new Vector<>();
+	public Vector<Double> orderWeights = new Vector<>();
+	public Vector<Integer> distributorIDs = new Vector<>();
 	
 	//button to launch cashier interface
 	public void cashierLaunch(ActionEvent event) throws IOException {
@@ -304,7 +320,7 @@ public class SampleController {
         
 	}
 	
-	public void completeOrder( ActionEvent event ) throws IOException {
+	public void completeSale( ActionEvent event ) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -339,6 +355,113 @@ public class SampleController {
         addItemField.setText("");
         weightField.setText("");
 	}
+	public void addOrderItem (ActionEvent event) throws IOException {
+		System.out.println("add order item");
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String productID = orderIDField.getText();
+        orderProductIDs.addElement(productID);
+        Double weight = Double.parseDouble( orderWeightField.getText() );
+        orderWeights.addElement(weight);
+        String sql = "SELECT productName, orderPrice FROM products WHERE productID = " + productID;
+        
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            
+            String productName ="";
+            String productPricePerKg = "";
+            
+            while (queryOutput.next()) {
+            	productName = queryOutput.getString("productName");
+            	productPricePerKg = queryOutput.getString("sellPrice");
+            }
+            
+            Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+            DecimalFormat df = new DecimalFormat("#.##");
+            totalPrice = Double.parseDouble(df.format(totalPrice));
+            orderTotal += totalPrice;
+            runningOrderTotal.setText("$" + orderTotal);
+            sql = "UPDATE products SET currentStock = currentStock + " + weight + " WHERE productID = " + productID;
+            statement.execute(sql);
+            
+            
+            String distributor = distributorField.getText();
+            order += productName + " | $" + totalPrice + " | " + distributor + "\n";
+            System.out.println(order);
+            orderItems.setText(order);
+            
+            if (currOrderLineItemID == 0) {
+            	 sql = "SELECT MAX (orderLineID) FROM orderLineItems";
+                 queryOutput = statement.executeQuery(sql);
+              
+                 String maxID = "";
+                 while (queryOutput.next()) {
+                 	maxID = queryOutput.getString("max");
+                 }
+                 currOrderLineItemID = Integer.parseInt(maxID);
+            }
+            currLineItemID += 1;
+            orderLineItemIDs.addElement(currOrderLineItemID);
+            
+            if (currOrderInvoiceID == 0) {
+            	sql = "SELECT MAX (orderInvoiceID) FROM orderLineItems";
+            	queryOutput = statement.executeQuery(sql);
+            	String maxOrderInvoiceID = "";
+            	while (queryOutput.next()) {
+            		maxOrderInvoiceID = queryOutput.getString("max");
+            	}
+            	currOrderInvoiceID = Integer.parseInt(maxOrderInvoiceID) + 1;
+            	
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }   
+	}
 	
-	
+	public void completeOrder( ActionEvent event ) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            String sql = "INSERT INTO orderInvoiceHistory VALUES (" + currOrderInvoiceID + ", '" + currOrderDate + "', '" + orderTotal + "', " + orderEmployeeID + ")";
+            statement.execute(sql);
+            for (int i = 0; i < orderWeights.size(); i++) {
+            	sql = "INSERT INTO orderLineItems VALUES (" + orderLineItemIDs.elementAt(i) + ", " + currOrderInvoiceID + ", " + orderProductIDs.elementAt(i) + ", " + orderWeights.elementAt(i) + ", " + distributorIDs.elementAt(i) + ")";
+                statement.execute(sql);
+            }
+            orderTotal = 0.0;
+            currOrderInvoiceID = 0;
+            currOrderLineItemID = 0;
+            order = "";
+            orderItems.setText(order);
+            orderLineItemIDs.clear();
+            orderProductIDs.clear();
+            orderWeights.clear();
+            distributorIDs.clear();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        runningTotal.setText("$0");
+        addItemField.setText("");
+        weightField.setText("");
+	}
 }// end SampleController class

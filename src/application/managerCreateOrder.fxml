@@ -18,15 +18,15 @@
       <Label layoutX="42.0" layoutY="62.0" style="-fx-border-color: black;" text="ID" />
       <Label layoutX="93.0" layoutY="62.0" style="-fx-border-color: black;" text="Weight" />
       <Label layoutX="153.0" layoutY="62.0" style="-fx-border-color: black;" text="Distributor" />
-      <TextField layoutX="19.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
-      <TextField layoutX="84.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
-      <TextField layoutX="153.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
-      <Button layoutX="239.0" layoutY="88.0" mnemonicParsing="false" text="Add Item" />
+      <TextField fx:id="orderIDField" layoutX="19.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <TextField fx:id="orderWeightField" layoutX="84.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <TextField fx:id="distributorField" layoutX="153.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <Button layoutX="248.0" layoutY="76.0" mnemonicParsing="false" onAction="#addOrderItem" text="Add Item" />
       <ScrollPane layoutX="19.0" layoutY="118.0" prefHeight="363.0" prefWidth="200.0" style="-fx-border-color: black;" />
       <Label alignment="CENTER" layoutX="418.0" layoutY="63.0" prefHeight="19.0" prefWidth="210.0" style="-fx-border-color: black;" text="Current Order" />
-      <Label alignment="CENTER" layoutX="418.0" layoutY="81.0" prefHeight="298.0" prefWidth="210.0" style="-fx-border-color: black;" text="no item info" />
+      <Label fx:id="orderItems" alignment="CENTER" layoutX="418.0" layoutY="81.0" prefHeight="298.0" prefWidth="210.0" style="-fx-border-color: black;" text="no item info" />
       <Label layoutX="509.0" layoutY="397.0" text="Total" />
-      <TextField layoutX="449.0" layoutY="414.0" />
-      <Button fx:id="completeOrder" layoutX="472.0" layoutY="450.0" mnemonicParsing="false" text="Complete Order" />
+      <TextField fx:id="runningOrderTotal" layoutX="438.0" layoutY="402.0" />
+      <Button layoutX="472.0" layoutY="450.0" mnemonicParsing="false" onAction="#completeOrder" text="Complete Order" />
    </children>
 </AnchorPane>
