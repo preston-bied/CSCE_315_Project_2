@@ -6,6 +6,7 @@ public class populateAll {
     public String sqlStatement;
     public Statement stmt;
 
+    // grant access to all team members
     public void grantAccess(String tableName) {
         sqlStatement = "GRANT ALL ON " + tableName + " TO csce315950_preston";
         stmt.execute(sqlStatement);
@@ -19,6 +20,7 @@ public class populateAll {
         stmt.execute(sqlStatement);
     }
 
+    // insert a single row of the csv file into the table
     public void insertRow(String[] rowArray, String tableName) {
         sqlStatement = "INSERT INTO " + tableName + " VALUES(";
         sqlStatement += "'" + rowArray[0] + "'";
@@ -29,6 +31,7 @@ public class populateAll {
         stmt.execute(sqlStatement);
     }
 
+    // populate a single table entity of the database
     public String[] populateTable(String filepath, String tableName) {
         stmt = conn.createStatement();
         File file = new File(filepath);
@@ -40,7 +43,8 @@ public class populateAll {
 
         grantAccess(stmt, tableName);
 
-        try {
+        try {  
+            // loop through every line of the csv
             while (line != null) {
                 rowArray = line.split(delimiter);
                 insertRow(rowArray, tableName);
@@ -77,6 +81,7 @@ public class populateAll {
 
         String[] tables = {"products", "employees", "saleLineItems", "orderLineItems", "saleInvoiceHistory", "orderInvoiceHistory"};
 
+        // create all tables
         sqlStatement = "CREATE TABLE products (productID INT PRIMARY KEY, productName VARCHAR, orderPrice MONEY, sellPrice MONEY, currentStock FLOAT, desiredStock FLOAT)";
         stmt.execute(sqlStatement);
 
@@ -95,12 +100,14 @@ public class populateAll {
         sqlStatement = "CREATE TABLE orderInvoiceHistory (orderInvoiceID INT PRIMARY KEY, orderDate DATE, orderTotalCost MONEY, employeeID INT, distributorID INT)";
         stmt.execute(sqlStatement);
 
+        // populate each table of the database
         String filepath;
         for (int i = 0; i < tables.length; i++) {
             filepath = "CSV/" + tables[i];
             populateTable(filepath, tables[i]);
         }
 
+        // close the connection
         try {
             conn.close();
             System.out.println("Connection Closed.");
