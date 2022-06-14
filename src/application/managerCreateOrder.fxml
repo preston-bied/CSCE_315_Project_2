@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane accessibleRole="MENU_BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="641.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <children>
+      <Label alignment="CENTER" layoutX="238.0" prefHeight="54.0" prefWidth="174.0" text="Create Order Page" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="logoutButton" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="Logout" />
+      <Label layoutX="42.0" layoutY="62.0" style="-fx-border-color: black;" text="ID" />
+      <Label layoutX="93.0" layoutY="62.0" style="-fx-border-color: black;" text="Weight" />
+      <Label layoutX="153.0" layoutY="62.0" style="-fx-border-color: black;" text="Distributor" />
+      <TextField layoutX="19.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <TextField layoutX="84.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <TextField layoutX="153.0" layoutY="88.0" prefHeight="25.0" prefWidth="59.0" />
+      <Button layoutX="239.0" layoutY="88.0" mnemonicParsing="false" text="Add Item" />
+      <ScrollPane layoutX="19.0" layoutY="118.0" prefHeight="363.0" prefWidth="200.0" style="-fx-border-color: black;" />
+      <Label alignment="CENTER" layoutX="418.0" layoutY="63.0" prefHeight="19.0" prefWidth="210.0" style="-fx-border-color: black;" text="Current Order" />
+      <Label alignment="CENTER" layoutX="418.0" layoutY="81.0" prefHeight="298.0" prefWidth="210.0" style="-fx-border-color: black;" text="no item info" />
+      <Label layoutX="509.0" layoutY="397.0" text="Total" />
+      <TextField layoutX="449.0" layoutY="414.0" />
+      <Button fx:id="completeOrder" layoutX="472.0" layoutY="450.0" mnemonicParsing="false" text="Complete Order" />
+   </children>
+</AnchorPane>

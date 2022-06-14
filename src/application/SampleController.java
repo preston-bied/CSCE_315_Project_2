@@ -49,6 +49,7 @@ public class SampleController {
 	//controllers
 	@FXML private Button cashierButton;
 	@FXML private Button managerButton;
+	@FXML private Button managerOrderButton;
 	@FXML private Button logoutButton;
 	@FXML private Button addItemButton;
 	@FXML private AnchorPane scenePane;
@@ -209,6 +210,13 @@ public class SampleController {
 		stage.show(); 
 	}
 	
+	public void managerOrders(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("managerCreateOrder.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show(); 
+	}
 	//logout notification
 	public void logout( ActionEvent event ) throws IOException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
