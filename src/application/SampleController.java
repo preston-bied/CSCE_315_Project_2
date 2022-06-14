@@ -256,7 +256,7 @@ public class SampleController {
             
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
             DecimalFormat df = new DecimalFormat("#.##");
-            df.format(totalPrice);
+            totalPrice = Double.parseDouble(df.format(totalPrice));
             saleTotal += totalPrice;
             runningTotal.setText("$" + saleTotal);
             sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
@@ -327,7 +327,7 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        runningTotal.setText("0");
+        runningTotal.setText("$0");
         addItemField.setText("");
         weightField.setText("");
 	}
