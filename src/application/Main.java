@@ -1,9 +1,7 @@
 package application;	
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import javax.swing.JOptionPane;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -12,26 +10,24 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
-
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start( Stage primaryStage ) throws Exception {
 		try {
 			//create root stage and scene			
 			Parent root = FXMLLoader.load(getClass().getResource("homePageGUI.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			//running stage
 			primaryStage.show();
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			//running stage 
-			primaryStage.setTitle("User Select");	
+			primaryStage.setTitle("GUI");	
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-
 	public static void main(String[] args) {
         // build connection with credentials
         Connection conn = null;
@@ -44,7 +40,7 @@ public class Main extends Application {
         // connect to database
         try {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
@@ -52,7 +48,6 @@ public class Main extends Application {
 
         System.out.println("Opened database successfully");       
         //JOptionPane.showMessageDialog(null,"Opened database successfully");
-		
         
         //launch the application
 		launch(args);
