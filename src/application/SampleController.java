@@ -48,13 +48,20 @@ public class SampleController {
 	@FXML private Button cashierButton;
 	@FXML private Button managerButton;
 	@FXML private Button logoutButton;
+	@FXML private Button addItemButton;
 	@FXML private AnchorPane scenePane;
 	@FXML private Label showProductName = new Label();
 	@FXML private Label showProductPrice = new Label();
+	@FXML private Label showProductID = new Label();
+	@FXML private Label saleItems = new Label();
+	@FXML private TextField addItemField = new TextField();
+	@FXML private TextField weightField = new TextField();
 	@FXML private TableView<productDescription> tableDescription;
 	@FXML private TableColumn<productDescription, String> col_name;
 	@FXML private TableColumn<productDescription, String> col_price;
 	ArrayList<Button> buttons;
+	
+	public String sale = "";
 	
 	//button to launch cashier interface
 	public void cashierLaunch(ActionEvent event) throws IOException {
@@ -75,7 +82,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Chicken%' OR productName LIKE '%Chicken'";
+        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Chicken%' OR productName LIKE '%Chicken'";
         
         // connect to database
         try {
@@ -85,14 +92,18 @@ public class SampleController {
             ResultSet queryOutput = statement.executeQuery(sql);
             String product = "";
             String price = "";
+            String ID = "";
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
             	String sellPrice = queryOutput.getString("sellPrice");
+            	String productID = queryOutput.getString("productID");
             	product += productName + "\n";
             	price += sellPrice + "\n";
+            	ID += productID + "\n";
             }
             showProductName.setText(product);
-            showProductPrice.setText(price);           
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -110,7 +121,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
+        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
         
         // connect to database
         try {
@@ -120,14 +131,18 @@ public class SampleController {
             ResultSet queryOutput = statement.executeQuery(sql);
             String product = "";
             String price = "";
+            String ID = "";
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
             	String sellPrice = queryOutput.getString("sellPrice");
+            	String productID = queryOutput.getString("productID");
             	product += productName + "\n";
             	price += sellPrice + "\n";
+            	ID += productID + "\n";
             }
             showProductName.setText(product);
-            showProductPrice.setText(price);           
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -145,7 +160,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
+        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
         
         // connect to database
         try {
@@ -155,14 +170,18 @@ public class SampleController {
             ResultSet queryOutput = statement.executeQuery(sql);
             String product = "";
             String price = "";
+            String ID = "";
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
             	String sellPrice = queryOutput.getString("sellPrice");
+            	String productID = queryOutput.getString("productID");
             	product += productName + "\n";
             	price += sellPrice + "\n";
+            	ID += productID + "\n";
             }
             showProductName.setText(product);
-            showProductPrice.setText(price);           
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -195,11 +214,44 @@ public class SampleController {
 		}
 	}
 	
-//	public void initialize (URL url, ResourceBundle rb) {
-//		
-//		col_name.setCellValueFactory(new PropertyValueFactory<productDescription, String>("name"));
-//		col_price.setCellValueFactory(new PropertyValueFactory<productDescription, String>("sellPrice"));
-//		tableDescription.setItems(list));
-//	}
+	//add item to total 
+	public void addItem (ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String productID = addItemField.getText();
+        Double weight = Double.parseDouble( weightField.getText() );
+        String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
+        
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            
+            String productName ="";
+            String productPricePerKg = "";
+            
+            while (queryOutput.next()) {
+            	productName = queryOutput.getString("productName");
+            	productPricePerKg = queryOutput.getString("sellPrice");
+            }
+            
+            Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+            
+            sale += productName + " | $" + totalPrice + "\n";
+            saleItems.setText(sale);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        
+	}
+	
 	
 }// end SampleController class
