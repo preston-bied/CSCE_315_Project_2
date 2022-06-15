@@ -92,11 +92,8 @@ public class SampleController {
 	 * @throws IOException if scene fails to load
 	 */
 	public void cashierLaunch(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("cashierScene.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show(); 
+		dbConnection newConnection = new dbConnection(); 
+        newConnection.launchScene("cashierScene.fxml");
 	}
 	
 	/**
@@ -107,11 +104,7 @@ public class SampleController {
 	public void cashierChickenQuery(ActionEvent event) throws IOException, SQLException {
 		
 		Connection conn = null;
-
-        dbConnection newConnection = new dbConnection();
-        String dbConnectionString = newConnection.connectToDatabase() 
-        dbSetup myCredentials = new dbSetup(); 
-        
+        String dbConnectionString = dbConnection.connectToDatabase(); 
         newConnection.cashierQuery(dbConnectionString, "Chicken");
 	}	
 	
@@ -123,11 +116,7 @@ public class SampleController {
 	public void cashierBeefQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
-
-        dbConnection newConnection = new dbConnection();
-        String dbConnectionString = newConnection.connectToDatabase() 
-        dbSetup myCredentials = new dbSetup(); 
-        
+        String dbConnectionString = dbConnection.connectToDatabase(); 
         newConnection.cashierQuery(dbConnectionString, "Beef");
 
 	}	
@@ -140,11 +129,7 @@ public class SampleController {
 	public void cashierPorkQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
-
-        dbConnection newConnection = new dbConnection();
-        String dbConnectionString = newConnection.connectToDatabase() 
-        dbSetup myCredentials = new dbSetup(); 
-        
+        String dbConnectionString = dbConnection.connectToDatabase(); 
         newConnection.cashierQuery(dbConnectionString, "Pork");
 	}	
 	
@@ -154,11 +139,8 @@ public class SampleController {
 	 * @throws IOException if scene fails to launch
 	 */
 	public void managerLaunch(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("managerScene.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show(); 
+		dbConnection newConnection = new dbConnection(); 
+        newConnection.launchScene("managerScene.fxml");
 	}
 	
 	/**
@@ -168,11 +150,8 @@ public class SampleController {
 	 */
 	public void managerOrders(ActionEvent event) throws IOException {
 		//System.out.println("Launched manager order page");
-		Parent root = FXMLLoader.load(getClass().getResource("managerCreateOrder.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show(); 
+		dbConnection newConnection = new dbConnection(); 
+        newConnection.launchScene("managerCreateOrder.fxml");
 	}
 	
 	/**
@@ -202,11 +181,7 @@ public class SampleController {
 	 */
 	public void addItem (ActionEvent event) throws IOException {
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
+        string dbConnectionString = dbConnection.connectToDatabase();
         
         String productID = addItemField.getText();
         productIDs.addElement(productID);
@@ -277,11 +252,7 @@ public class SampleController {
 	 */
 	public void completeSale( ActionEvent event ) throws IOException {
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
+        String dbConnectionString = dbConnection.connectToDatabase();
         
         try {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
@@ -319,11 +290,7 @@ public class SampleController {
 	public void addOrderItem (ActionEvent event) throws IOException {
 		//System.out.println("Launched manager order item button");
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
+        String dbConnectionString = dbConnection.connectToDatabase();
         
         String productID = orderIDField.getText();
         orderProductIDs.addElement(productID);
@@ -395,11 +362,7 @@ public class SampleController {
 	 */
 	public void completeOrder( ActionEvent event ) throws IOException {
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
+        String dbConnectionString = dbConnection.connectToDatabase();
         
         try {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);

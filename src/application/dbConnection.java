@@ -10,7 +10,7 @@ public class dbConnection {
      * 
      * @return dbConnectionString is the string used to connect to the database
      */
-    public String connectToDatabase() {
+    public static String connectToDatabase() {
 		String teamNumber = "2";
 		String sectionNumber = "950";
 		String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
@@ -25,7 +25,7 @@ public class dbConnection {
      * @throws IOException if scene fails to load
 	 * @throws SQLException if database fails to connect
      */
-    public void cashierQuery(String dbConnectionString, String queryProduct) throws IOException, SQLException{
+    public static void cashierQuery(String dbConnectionString, String queryProduct) throws IOException, SQLException{
         String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE '" + 
                      queryProduct + "%' OR productName LIKE '%"+ queryProduct + "'";
 
@@ -69,10 +69,4 @@ public class dbConnection {
 		stage.show(); 
     }
 
-    // Not using this for now, it may be unneccessary
-    public void catchException() {
-        e.printStackTrace();
-        System.err.println(e.getClass().getName()+": "+e.getMessage());
-        System.exit(0);
-    }
 }
