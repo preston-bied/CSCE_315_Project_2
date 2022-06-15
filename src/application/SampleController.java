@@ -107,39 +107,12 @@ public class SampleController {
 	public void cashierChickenQuery(ActionEvent event) throws IOException, SQLException {
 		
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+
+        dbConnection newConnection = new dbConnection();
+        String dbConnectionString = newConnection.connectToDatabase() 
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Chicken%' OR productName LIKE '%Chicken'";
-        
-        // connect to database
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-            
-            Statement statement = conn.createStatement();
-            ResultSet queryOutput = statement.executeQuery(sql);
-            String product = "";
-            String price = "";
-            String ID = "";
-            while (queryOutput.next()) {
-            	String productName = queryOutput.getString("productName");
-            	String sellPrice = queryOutput.getString("sellPrice");
-            	String productID = queryOutput.getString("productID");
-            	product += productName + "\n";
-            	price += sellPrice + "\n";
-            	ID += productID + "\n";
-            }
-            showProductName.setText(product);
-            showProductPrice.setText(price);
-            showProductID.setText(ID);
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        newConnection.cashierQuery(dbConnectionString, "Chicken");
 	}	
 	
 	/**
@@ -150,39 +123,12 @@ public class SampleController {
 	public void cashierBeefQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+
+        dbConnection newConnection = new dbConnection();
+        String dbConnectionString = newConnection.connectToDatabase() 
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
-        
-        // connect to database
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-            
-            Statement statement = conn.createStatement();
-            ResultSet queryOutput = statement.executeQuery(sql);
-            String product = "";
-            String price = "";
-            String ID = "";
-            while (queryOutput.next()) {
-            	String productName = queryOutput.getString("productName");
-            	String sellPrice = queryOutput.getString("sellPrice");
-            	String productID = queryOutput.getString("productID");
-            	product += productName + "\n";
-            	price += sellPrice + "\n";
-            	ID += productID + "\n";
-            }
-            showProductName.setText(product);
-            showProductPrice.setText(price);
-            showProductID.setText(ID);
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        newConnection.cashierQuery(dbConnectionString, "Beef");
 
 	}	
 	
@@ -194,39 +140,12 @@ public class SampleController {
 	public void cashierPorkQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
-        String teamNumber = "2";
-        String sectionNumber = "950";
-        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+
+        dbConnection newConnection = new dbConnection();
+        String dbConnectionString = newConnection.connectToDatabase() 
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
-        
-        // connect to database
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-            
-            Statement statement = conn.createStatement();
-            ResultSet queryOutput = statement.executeQuery(sql);
-            String product = "";
-            String price = "";
-            String ID = "";
-            while (queryOutput.next()) {
-            	String productName = queryOutput.getString("productName");
-            	String sellPrice = queryOutput.getString("sellPrice");
-            	String productID = queryOutput.getString("productID");
-            	product += productName + "\n";
-            	price += sellPrice + "\n";
-            	ID += productID + "\n";
-            }
-            showProductName.setText(product);
-            showProductPrice.setText(price);
-            showProductID.setText(ID);
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        newConnection.cashierQuery(dbConnectionString, "Pork");
 	}	
 	
 	/**
