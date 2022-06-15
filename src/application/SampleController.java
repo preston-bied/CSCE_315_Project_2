@@ -60,12 +60,14 @@ public class SampleController {
 	@FXML private Label saleItems = new Label();
 	@FXML private Label orderItems = new Label();
 	@FXML private Label runningTotal = new Label();
+	@FXML private Label orderItemSPLabel = new Label();
 	@FXML private TextField runningOrderTotal = new TextField();
 	@FXML private TextField addItemField = new TextField();
 	@FXML private TextField weightField = new TextField();
 	@FXML private TextField orderIDField = new TextField();
 	@FXML private TextField orderWeightField = new TextField();
 	@FXML private TextField distributorField = new TextField();
+	@FXML private ScrollPane scrollPane = new ScrollPane();
 	
 	public String sale = "";
 	public Double saleTotal = 0.0;
@@ -425,6 +427,10 @@ public class SampleController {
             	productName = queryOutput.getString("productName");
             	productPricePerKg = queryOutput.getString("orderPrice");
             }
+            
+            //populate in a while loop using queryOutput
+            //scrollPane.setContent(orderItemSPLabel);
+            //orderItemSPLabel.setText();
             
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
             DecimalFormat df = new DecimalFormat("#.##");

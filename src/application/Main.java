@@ -13,6 +13,9 @@ import javafx.fxml.FXMLLoader;
 /**
  * 
  * @author Robert O'Reilly
+ * @author Preston Bieh
+ * @author Ethan Martinez
+ * @author Cyrus Buhariwala
  * Method receive a launch command from main and passes in "arg"
  * This methods launches the application window and links to the sampleController.java
  * 
