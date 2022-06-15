@@ -72,7 +72,7 @@ public class SampleController {
 	public int currSaleInvoiceID = 0;
 	public int currLineItemID = 0;
 	public int employeeID = 1;
-	public String currDate = "2022-06-14";
+	public String currDate = "2022-06-15";
 	public Vector<String> productIDs = new Vector<>();
 	public Vector<Integer> lineItemIDs = new Vector<>();
 	public Vector<Double> weights = new Vector<>();
@@ -82,11 +82,10 @@ public class SampleController {
 	public int currOrderInvoiceID = 0;
 	public int currOrderLineItemID = 0;
 	public int orderEmployeeID = 1;
-	public String currOrderDate = "2022-06-14";
+	public String currOrderDate = "2022-06-15";
 	public Vector<String> orderProductIDs = new Vector<>();
 	public Vector<Integer> orderLineItemIDs = new Vector<>();
 	public Vector<Double> orderWeights = new Vector<>();
-	public Vector<Integer> distributorIDs = new Vector<>();
 	
 	/**
 	 * @param event launches cashier interface
@@ -436,8 +435,7 @@ public class SampleController {
             statement.execute(sql);
             
             
-            String distributor = distributorField.getText();
-            order += productName + " | $" + totalPrice + " | " + distributor + "\n";
+            order += productName + " | $" + totalPrice + "\n";
             System.out.println(order);
             orderItems.setText(order);
             
@@ -451,19 +449,19 @@ public class SampleController {
                  }
                  currOrderLineItemID = Integer.parseInt(maxID);
             }
-            currLineItemID += 1;
+            currOrderLineItemID += 1;
             orderLineItemIDs.addElement(currOrderLineItemID);
             
             if (currOrderInvoiceID == 0) {
-            	sql = "SELECT MAX (orderInvoiceID) FROM orderLineItems";
+            	sql = "SELECT MAX (orderInvoiceID) FROM orderInvoiceHistory";
             	queryOutput = statement.executeQuery(sql);
             	String maxOrderInvoiceID = "";
             	while (queryOutput.next()) {
             		maxOrderInvoiceID = queryOutput.getString("max");
             	}
-            	currOrderInvoiceID = Integer.parseInt(maxOrderInvoiceID) + 1;
-            	
+            	currOrderInvoiceID = Integer.parseInt(maxOrderInvoiceID);
             }
+            currOrderInvoiceID++;
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -488,10 +486,13 @@ public class SampleController {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
             
             Statement statement = conn.createStatement();
-            String sql = "INSERT INTO orderInvoiceHistory VALUES (" + currOrderInvoiceID + ", '" + currOrderDate + "', '" + orderTotal + "', " + orderEmployeeID + ")";
+            
+            String distributor = distributorField.getText();
+            
+            String sql = "INSERT INTO orderInvoiceHistory VALUES (" + currOrderInvoiceID + ", '" + currOrderDate + "', '" + orderTotal + "', " + orderEmployeeID + ", " + distributor + ")";
             statement.execute(sql);
             for (int i = 0; i < orderWeights.size(); i++) {
-            	sql = "INSERT INTO orderLineItems VALUES (" + orderLineItemIDs.elementAt(i) + ", " + currOrderInvoiceID + ", " + orderProductIDs.elementAt(i) + ", " + orderWeights.elementAt(i) + ", " + distributorIDs.elementAt(i) + ")";
+            	sql = "INSERT INTO orderLineItems VALUES (" + orderLineItemIDs.elementAt(i) + ", " + currOrderInvoiceID + ", " + orderProductIDs.elementAt(i) + ", " + orderWeights.elementAt(i) + ")";
                 statement.execute(sql);
             }
             orderTotal = 0.0;
@@ -502,14 +503,14 @@ public class SampleController {
             orderLineItemIDs.clear();
             orderProductIDs.clear();
             orderWeights.clear();
-            distributorIDs.clear();
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        runningTotal.setText("$0");
-        addItemField.setText("");
-        weightField.setText("");
+        runningOrderTotal.setText("$0");
+        orderIDField.setText("");
+        orderWeightField.setText("");
+        distributorField.setText("");
 	}
 }// end SampleController class
