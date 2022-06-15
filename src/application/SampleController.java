@@ -52,6 +52,7 @@ public class SampleController {
 	@FXML private Button managerOrderButton;
 	@FXML private Button logoutButton;
 	@FXML private Button addItemButton;
+	//@FXML private Button addOrderButton;
 	@FXML private AnchorPane scenePane;
 	@FXML private Label showProductName = new Label();
 	@FXML private Label showProductPrice = new Label();
@@ -59,16 +60,12 @@ public class SampleController {
 	@FXML private Label saleItems = new Label();
 	@FXML private Label orderItems = new Label();
 	@FXML private Label runningTotal = new Label();
-	@FXML private Label runningOrderTotal = new Label();
+	@FXML private TextField runningOrderTotal = new TextField();
 	@FXML private TextField addItemField = new TextField();
 	@FXML private TextField weightField = new TextField();
 	@FXML private TextField orderIDField = new TextField();
 	@FXML private TextField orderWeightField = new TextField();
 	@FXML private TextField distributorField = new TextField();
-	@FXML private TableView<productDescription> tableDescription;
-	@FXML private TableColumn<productDescription, String> col_name;
-	@FXML private TableColumn<productDescription, String> col_price;
-	ArrayList<Button> buttons;
 	
 	public String sale = "";
 	public Double saleTotal = 0.0;
@@ -91,7 +88,10 @@ public class SampleController {
 	public Vector<Double> orderWeights = new Vector<>();
 	public Vector<Integer> distributorIDs = new Vector<>();
 	
-	//button to launch cashier interface
+	/**
+	 * @param event launches cashier interface
+	 * @throws IOException if scene fails to load
+	 */
 	public void cashierLaunch(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("cashierScene.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -100,7 +100,11 @@ public class SampleController {
 		stage.show(); 
 	}
 	
-	//button to generate chicken products in cashier interface
+	/**
+	 * @param event pulls up chicken info in cashier interface
+	 * @throws IOException if scene fails to load
+	 * @throws SQLException if database fails to connect
+	 */
 	public void cashierChickenQuery(ActionEvent event) throws IOException, SQLException {
 		
 		Connection conn = null;
@@ -139,7 +143,11 @@ public class SampleController {
         }
 	}	
 	
-	//button to generate chicken products in cashier interface
+	/**
+	 * 
+	 * @param event pulls up beef info for cashier interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void cashierBeefQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
@@ -178,7 +186,12 @@ public class SampleController {
         }
 
 	}	
-	//button to generate chicken products in cashier interface
+	
+	/**
+	 * 
+	 * @param event pulls up beef info for cashier interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void cashierPorkQuery(ActionEvent event) throws IOException {
 		
 		Connection conn = null;
@@ -217,7 +230,11 @@ public class SampleController {
         }
 	}	
 	
-	//button to launch manager interface
+	/**
+	 * 
+	 * @param event launches manager interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void managerLaunch(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("managerScene.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -226,14 +243,25 @@ public class SampleController {
 		stage.show(); 
 	}
 	
+	/**
+	 * 
+	 * @param event launches manager orders scene interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void managerOrders(ActionEvent event) throws IOException {
+		//System.out.println("Launched manager order page");
 		Parent root = FXMLLoader.load(getClass().getResource("managerCreateOrder.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show(); 
 	}
-	//logout notification
+	
+	/**
+	 * 
+	 * @param event launches the logout alert prompt
+	 * @throws IOException if alert prompt fails to launch
+	 */
 	public void logout( ActionEvent event ) throws IOException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Logout");
@@ -249,7 +277,11 @@ public class SampleController {
 		}
 	}
 	
-	//add item to total 
+	/**
+	 * 
+	 * @param event adds item it cashier interface for customer total
+	 * @throws IOException if scene fails to launches
+	 */
 	public void addItem (ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -320,6 +352,11 @@ public class SampleController {
         
 	}
 	
+	/**
+	 * 
+	 * @param event completes a sale in cashier interface and uploads the database
+	 * @throws IOException if scene fails to launch
+	 */
 	public void completeSale( ActionEvent event ) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -355,8 +392,14 @@ public class SampleController {
         addItemField.setText("");
         weightField.setText("");
 	}
+	
+	/**
+	 * 
+	 * @param event adds an item to order list in managers order page interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void addOrderItem (ActionEvent event) throws IOException {
-		System.out.println("add order item");
+		//System.out.println("Launched manager order item button");
 		Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -381,7 +424,7 @@ public class SampleController {
             
             while (queryOutput.next()) {
             	productName = queryOutput.getString("productName");
-            	productPricePerKg = queryOutput.getString("sellPrice");
+            	productPricePerKg = queryOutput.getString("orderPrice");
             }
             
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
@@ -428,6 +471,11 @@ public class SampleController {
         }   
 	}
 	
+	/**
+	 * 
+	 * @param event completes an order in managers order page interface
+	 * @throws IOException if scene fails to load
+	 */
 	public void completeOrder( ActionEvent event ) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";

@@ -10,6 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
+/**
+ * 
+ * @author Robert O'Reilly
+ * Method receive a launch command from main and passes in "arg"
+ * This methods launches the application window and links to the sampleController.java
+ * 
+ * @param primaryStage creates the primary scene window for the application
+ * @throws Exception if scene application fails to launch
+ */
 public class Main extends Application {
 	@Override
 	public void start( Stage primaryStage ) throws Exception {
