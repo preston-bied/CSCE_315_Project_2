@@ -17,30 +17,30 @@
                </font>
             </Label>
             <Button fx:id="logoutButton" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="Logout" />
-            <Label fx:id="showProductName" alignment="CENTER" layoutX="68.0" layoutY="65.0" prefHeight="441.0" prefWidth="92.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerNameLabel" alignment="CENTER" layoutX="68.0" layoutY="65.0" prefHeight="441.0" prefWidth="92.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productLabel" alignment="CENTER" layoutX="68.0" layoutY="46.0" prefHeight="19.0" prefWidth="92.0" style="-fx-border-color: black;" text="Product Name" />
-            <Label fx:id="showProductID" alignment="CENTER" layoutX="9.0" layoutY="65.0" prefHeight="441.0" prefWidth="59.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerIDLabel" alignment="CENTER" layoutX="6.0" layoutY="65.0" prefHeight="441.0" prefWidth="59.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productID" alignment="CENTER" layoutX="9.0" layoutY="46.0" prefHeight="19.0" prefWidth="59.0" style="-fx-border-color: black;" text="ID" />
-            <Label fx:id="showProductPrice1" alignment="CENTER" layoutX="347.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerCurrentLabel" alignment="CENTER" layoutX="347.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productLabel11" alignment="CENTER" layoutX="347.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current Stock" />
-            <Label fx:id="showProductPrice11" alignment="CENTER" layoutX="431.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerDesiredLabel" alignment="CENTER" layoutX="431.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productLabel111" alignment="CENTER" layoutX="431.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired Stock" />
             <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#backButton" style="-fx-border-color: blue;" text="Back" />
             <Pane layoutX="527.0" layoutY="87.0" prefHeight="142.0" prefWidth="100.0" style="-fx-border-color: black;">
                <children>
-                  <TextField fx:id="orderWeightField" layoutX="21.0" layoutY="104.0" prefHeight="25.0" prefWidth="59.0" />
+                  <TextField fx:id="endDateField" layoutX="3.0" layoutY="104.0" prefHeight="25.0" prefWidth="92.0" />
                   <Label layoutX="21.0" layoutY="85.0" prefHeight="19.0" prefWidth="59.0" style="-fx-border-color: black;" text="End Date" />
                   <Label layoutX="21.0" layoutY="25.0" prefHeight="19.0" prefWidth="59.0" style="-fx-border-color: black;" text="Start Date" />
-                  <TextField fx:id="orderIDField" layoutX="21.0" layoutY="44.0" prefHeight="25.0" prefWidth="59.0" />
+                  <TextField fx:id="startDateField" layoutX="3.0" layoutY="44.0" prefHeight="25.0" prefWidth="92.0" />
                </children>
             </Pane>
-            <Button layoutX="531.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Excess Report" />
-            <Label fx:id="showProductPrice12" alignment="CENTER" layoutX="169.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Button layoutX="531.0" layoutY="359.0" mnemonicParsing="false" onAction="#managerExcessReport" prefHeight="25.0" prefWidth="92.0" text="Excess Report" />
+            <Label fx:id="managerSDLabel" alignment="CENTER" layoutX="169.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productLabel112" alignment="CENTER" layoutX="169.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Sold Date" />
-            <Label fx:id="showProductPrice111" alignment="CENTER" layoutX="253.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerQuantityLabel" alignment="CENTER" layoutX="253.0" layoutY="65.0" prefHeight="441.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
             <Label fx:id="productLabel1111" alignment="CENTER" layoutX="253.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Quantity" />
-            <Button layoutX="531.0" layoutY="306.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text=" Sales Report" />
-            <Button layoutX="527.0" layoutY="418.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Restock Report" />
+            <Button layoutX="531.0" layoutY="306.0" mnemonicParsing="false" onAction="#managerSaleReport" prefHeight="25.0" prefWidth="92.0" text=" Sales Report" />
+            <Button layoutX="527.0" layoutY="418.0" mnemonicParsing="false" onAction="#managerRestockReport" prefHeight="25.0" prefWidth="100.0" text="Restock Report" />
          </children>
       </AnchorPane>
    </children>

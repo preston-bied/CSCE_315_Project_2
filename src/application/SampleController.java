@@ -71,6 +71,16 @@ public class SampleController {
 	@FXML private TextField distributorField = new TextField();
 	@FXML private ScrollPane scrollPane = new ScrollPane();
 	
+	//manager invoice history page labels
+	@FXML private Label managerIDLabel = new Label();
+	@FXML private Label managerNameLabel = new Label();
+	@FXML private Label managerSDLabel = new Label();
+	@FXML private Label managerQuantityLabel = new Label();
+	@FXML private Label managerCurrentLabel = new Label();
+	@FXML private Label managerDesiredLabel = new Label();
+	@FXML private TextField startDateField = new TextField();
+	@FXML private TextField endDateField = new TextField();	
+	
 	public String sale = "";
 	public Double saleTotal = 0.0;
 	public int currSaleInvoiceID = 0;
@@ -443,6 +453,168 @@ public class SampleController {
 		stage.show(); 	
 	}
 	
+	
+	public void managerSaleReport(ActionEvent event ) throws IOException {
+		String[] columnVals = queryFunctions.salesReport(startDateField.getText(), endDateField.getText());
+		managerIDLabel.setText(columnVals[0]);
+		managerNameLabel.setText(columnVals[1]);
+		managerQuantityLabel.setText(columnVals[2]);
+	}
+        
+	public void managerExcessReport(ActionEvent event ) throws IOException {
+//		Connection conn = null;
+//        String teamNumber = "2";
+//        String sectionNumber = "950";
+//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+//        dbSetup myCredentials = new dbSetup(); 
+//		
+//		Connection conn = null;
+//        String teamNumber = "2";
+//        String sectionNumber = "950";
+//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+//        dbSetup myCredentials = new dbSetup(); 
+//        
+//        String startDate = startDateField.getText();
+//        String endDate = startDateField.getText();
+//        
+//        //FIX SQL COMMAND FOR "sales report button"
+//        //String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
+//        
+//        try {
+//            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+//            
+//            Statement statement = conn.createStatement();
+//            ResultSet queryOutput = statement.executeQuery(sql);
+//            
+//            String productName ="";
+//            String productPricePerKg = "";
+//            
+//            while (queryOutput.next()) {
+//            	productName = queryOutput.getString("productName");
+//            	productPricePerKg = queryOutput.getString("sellPrice");
+//            }
+//            
+//            Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+//           // DecimalFormat df = new DecimalFormat("#.##");
+//           // totalPrice = Double.parseDouble(df.format(totalPrice));
+//            saleTotal += totalPrice;
+//            runningTotal.setText("$" + saleTotal);
+//            sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
+//            statement.execute(sql);
+//            
+//            sale += productName + " | $" + totalPrice + "\n";
+//            saleItems.setText(sale);
+//            
+//            if (currLineItemID == 0) {
+//            	 sql = "SELECT MAX (saleLineID) FROM saleLineItems";
+//                 queryOutput = statement.executeQuery(sql);
+//              
+//                 String maxID = "";
+//                 while (queryOutput.next()) {
+//                 	maxID = queryOutput.getString("max");
+//                 }
+//                 currLineItemID = Integer.parseInt(maxID);
+//            }
+//            currLineItemID += 1;
+//            lineItemIDs.addElement(currLineItemID);
+//            
+//            if (currSaleInvoiceID == 0) {
+//            	sql = "SELECT MAX (saleInvoiceID) FROM saleLineItems";
+//            	queryOutput = statement.executeQuery(sql);
+//            	String maxSaleInvoiceID = "";
+//            	while (queryOutput.next()) {
+//            		maxSaleInvoiceID = queryOutput.getString("max");
+//            	}
+//            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID) + 1;
+//            	
+//            }
+//        } catch ( Exception e ) {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+        
+	}     
+	
+	
+	public void managerRestockReport(ActionEvent event ) throws IOException {
+//		Connection conn = null;
+//        String teamNumber = "2";
+//        String sectionNumber = "950";
+//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+//        dbSetup myCredentials = new dbSetup(); 
+//		
+//		Connection conn = null;
+//        String teamNumber = "2";
+//        String sectionNumber = "950";
+//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+//        dbSetup myCredentials = new dbSetup(); 
+//        
+//        String startDate = startDateField.getText();
+//        String endDate = startDateField.getText();
+//        
+//        //FIX SQL COMMAND FOR "sales report button"
+//        //String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
+//        
+//        try {
+//            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+//            
+//            Statement statement = conn.createStatement();
+//            ResultSet queryOutput = statement.executeQuery(sql);
+//            
+//            String productName ="";
+//            String productPricePerKg = "";
+//            
+//            while (queryOutput.next()) {
+//            	productName = queryOutput.getString("productName");
+//            	productPricePerKg = queryOutput.getString("sellPrice");
+//            }
+//            
+//            Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
+//           // DecimalFormat df = new DecimalFormat("#.##");
+//           // totalPrice = Double.parseDouble(df.format(totalPrice));
+//            saleTotal += totalPrice;
+//            runningTotal.setText("$" + saleTotal);
+//            sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
+//            statement.execute(sql);
+//            
+//            sale += productName + " | $" + totalPrice + "\n";
+//            saleItems.setText(sale);
+//            
+//            if (currLineItemID == 0) {
+//            	 sql = "SELECT MAX (saleLineID) FROM saleLineItems";
+//                 queryOutput = statement.executeQuery(sql);
+//              
+//                 String maxID = "";
+//                 while (queryOutput.next()) {
+//                 	maxID = queryOutput.getString("max");
+//                 }
+//                 currLineItemID = Integer.parseInt(maxID);
+//            }
+//            currLineItemID += 1;
+//            lineItemIDs.addElement(currLineItemID);
+//            
+//            if (currSaleInvoiceID == 0) {
+//            	sql = "SELECT MAX (saleInvoiceID) FROM saleLineItems";
+//            	queryOutput = statement.executeQuery(sql);
+//            	String maxSaleInvoiceID = "";
+//            	while (queryOutput.next()) {
+//            		maxSaleInvoiceID = queryOutput.getString("max");
+//            	}
+//            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID) + 1;
+//            	
+//            }
+//        } catch ( Exception e ) {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        
+	}
 	/**
 	 * 
 	 * @param event returns manager to selection window
