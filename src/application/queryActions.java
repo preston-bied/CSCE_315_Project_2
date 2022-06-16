@@ -12,8 +12,8 @@ public class queryFunctions {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
 
-        String sql = "SELECT saleInvoiceID, saleDate FROM saleInvoiceHistory WHERE start >= '" + startDate + "' AND end <= '" + endDate + "'";
-        String output = "";
+        String sql = "SELECT saleInvoiceID, saleDate FROM saleInvoiceHistory WHERE saleDate >= '" + startDate + "' AND saleDate <= '" + endDate + "'";
+        Strin[] output = new String[3];
         
         // connect to database
         try {
@@ -41,20 +41,22 @@ public class queryFunctions {
                 }
             }
 
-            String productNames = "";
-            String productIDs = "";
-            String quantitiesSold = "";
+            String SproductNames = "";
+            String SproductIDs = "";
+            String SquantitiesSold = "";
             for (int i = 0; i < productIDs.size(); i++) {
                 sql = "SELECT productName FROM products WHERE productID = " + productIDs.elementAt(i);
                 queryOutput = statement.executeQuery(sql);
                 while (queryOutput.next()) {
-                    productNames += queryOutput.getString("productName") + "\n";
-                    productIds += productIDs.elementAt(i) + "\n";
-                    quantitiesSold += quantitiesSold.elementAt(i) + "\n";
+                    SproductNames += queryOutput.getString("productName") + "\n";
+                    SproductIds += productIDs.elementAt(i) + "\n";
+                    SquantitiesSold += quantitiesSold.elementAt(i) + "\n";
                 }
             }
 
-            String[] output = {productIDs, productNames, quantitiesSold};
+            output[0] = SproductNames;
+            output[1] = SproductIDs;
+            output[2] = SquantitiesSold;
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -72,8 +74,8 @@ public class queryFunctions {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
 
-        String sql = "SELECT saleInvoiceID FROM saleInvoiceHistory WHERE start >= '" + startDate + "' AND end <= '" + endDate + "'";
-        String output = "";
+        String sql = "SELECT saleInvoiceID FROM saleInvoiceHistory WHERE saleDate >= '" + startDate + "' AND saleDate <= '" + endDate + "'";
+        String[] output = new String[4];
         
         // connect to database
         try {
@@ -136,7 +138,15 @@ public class queryFunctions {
                 excessDesired += excessProductDesired.elementAt(i) + "\n";
             }
 
-            String[] output = {excessIDs, excessNames, excessCurrent, excessDesired};
+            output[0] = excessIDs;
+            output[1] = excessNames;
+            output[2] = excessCurrent;
+            output[3] = excessDesired;
             return output;
+    } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
     }
+    return output;
 }

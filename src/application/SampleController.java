@@ -455,7 +455,7 @@ public class SampleController {
 	
 	
 	public void managerSaleReport(ActionEvent event ) throws IOException {
-		String[] columnVals = queryFunctions.salesReport(startDateField.getText(), endDateField.getText());
+		String[] columnVals = queryActions.salesReport(startDateField.getText(), endDateField.getText());
 		managerIDLabel.setText(columnVals[0]);
 		managerNameLabel.setText(columnVals[1]);
 		managerQuantityLabel.setText(columnVals[2]);
