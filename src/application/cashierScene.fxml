@@ -39,6 +39,6 @@
       <Button layoutX="203.0" layoutY="469.0" mnemonicParsing="false" onAction="#completeSale" text="Complete Sale" />
       <Label fx:id="runningTotal" alignment="CENTER" layoutX="199.0" layoutY="448.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" />
       <Label fx:id="runningTotal1" alignment="CENTER" layoutX="199.0" layoutY="429.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" text="Total" />
-      <Button fx:id="addItemButton1" layoutX="71.0" layoutY="456.0" mnemonicParsing="false" onAction="#addItem" prefHeight="25.0" prefWidth="81.0" text="Delete Cart" />
+      <Button layoutX="71.0" layoutY="456.0" mnemonicParsing="false" onAction="#cashierDeleteButton" prefHeight="25.0" prefWidth="81.0" text="Delete Cart" />
    </children>
 </AnchorPane>

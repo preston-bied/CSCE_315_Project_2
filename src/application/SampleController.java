@@ -118,6 +118,9 @@ public class SampleController {
 	public Vector<Integer> orderLineItemIDs = new Vector<>();
 	public Vector<Double> orderWeights = new Vector<>();
 	
+	public Vector<String> deleteID = new Vector<>();
+	public Vector<String> deleteWeight = new Vector<>();
+	
 	/**
 	 * @param event launches cashier interface
 	 * @throws IOException if scene fails to load
@@ -259,7 +262,12 @@ public class SampleController {
             System.exit(0);
         }
 	}	
-	
+
+	/**
+	 * 
+	 * @param event pulls up chicken info for cashier interface
+	 * @throws IOException if scene fails to launch
+	 */
 	public void managerChickenQuery(ActionEvent event) throws IOException, SQLException {
 		
 		Connection conn = null;
@@ -416,6 +424,48 @@ public class SampleController {
         }
 	}
 	
+	// TODO
+	public void cashierDeleteButton(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            String sql = "INSERT INTO saleInvoiceHistory VALUES (" + currSaleInvoiceID + ", '" + currDate + "', '" + saleTotal + "', " + employeeID + ")";
+            statement.execute(sql);
+            for (int i = 0; i < weights.size(); i++) {
+            	sql = "INSERT INTO saleLineItems VALUES (" + lineItemIDs.elementAt(i) + ", " + currSaleInvoiceID + ", " + productIDs.elementAt(i) + ", " + weights.elementAt(i) + ")";
+                statement.execute(sql);
+            }
+            saleTotal = 0.0;
+            currSaleInvoiceID = 0;
+            currLineItemID = 0;
+            sale = "";
+            saleItems.setText(sale);
+            lineItemIDs.clear();
+            productIDs.clear();
+            weights.clear();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        runningTotal.setText("$0");
+        addItemField.setText("");
+        weightField.setText("");
+        
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Deletion Completed");
+	}
+	
+	
 	/**
 	 * 
 	 * @param event launches manager interface
@@ -551,7 +601,6 @@ public class SampleController {
         }
 	}
 	
-	
 	public void managerUpdateName(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -588,9 +637,45 @@ public class SampleController {
 	        managerDesiredInventoryField.setText("");
 		}
 	}
-	
-	
-	public void managerUpdatePrice(ActionEvent event) throws IOException {
+
+	public void managerUpdateOrderPrice(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "UPDATE products SET orderPrice = '" + managerOPInventoryField.getText() + "' WHERE productID = " + managerIdInventoryField.getText();
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Order Price Successfully Updated");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
+	}
+
+	public void managerUpdateSalePrice(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -628,8 +713,7 @@ public class SampleController {
 		
 	}
 	
-	
-	public void managerQTY(ActionEvent event) throws IOException {
+	public void managerCurrentQTY(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -654,6 +738,43 @@ public class SampleController {
     	Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmed");
 		alert.setHeaderText("Quantity Successfully Updated");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
+	}
+
+	public void managerDesiredQTY(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "UPDATE products SET desiredStock = '" + managerDesiredInventoryField.getText() + "' WHERE productID = " + managerIdInventoryField.getText();
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Desired Stock Successfully Updated");
 		
 		//launch logout alert from either interface
 		if( alert.showAndWait().get() == ButtonType.OK) {
@@ -773,10 +894,9 @@ public class SampleController {
             Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
             DecimalFormat df = new DecimalFormat("#.##");
             totalPrice = Double.parseDouble(df.format(totalPrice));
+            
             saleTotal += totalPrice;
             runningTotal.setText("$" + saleTotal);
-            sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
-            statement.execute(sql);
             
             sale += productName + " | $" + totalPrice + "\n";
             saleItems.setText(sale);
@@ -829,9 +949,12 @@ public class SampleController {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
             
             Statement statement = conn.createStatement();
+            
             String sql = "INSERT INTO saleInvoiceHistory VALUES (" + currSaleInvoiceID + ", '" + currDate + "', '" + saleTotal + "', " + employeeID + ")";
             statement.execute(sql);
             for (int i = 0; i < weights.size(); i++) {
+                sql = "UPDATE products SET currentStock = currentStock - " + weights.elementAt(i) + " WHERE productID = " + productIDs.elementAt(i);
+                statement.execute(sql);
             	sql = "INSERT INTO saleLineItems VALUES (" + lineItemIDs.elementAt(i) + ", " + currSaleInvoiceID + ", " + productIDs.elementAt(i) + ", " + weights.elementAt(i) + ")";
                 statement.execute(sql);
             }
@@ -848,19 +971,7 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        runningTotal.setText("$0");
-        addItemField.setText("");
-        weightField.setText("");
-        
-    	Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmed");
-		alert.setHeaderText("Sale Completed");
-		//alert.setContentText("");	
-		
-		//launch logout alert from either interface
-		if( alert.showAndWait().get() == ButtonType.OK) {
-		
-		}
+
 	}
 	
 	/**
