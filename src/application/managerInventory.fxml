@@ -9,7 +9,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
-      <AnchorPane accessibleRole="MENU_BUTTON" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="641.0" style="-fx-border-color: black;">
+      <AnchorPane accessibleRole="MENU_BUTTON" layoutY="-6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="805.0" prefWidth="641.0" style="-fx-border-color: black;">
          <children>
             <Label alignment="CENTER" layoutX="238.0" prefHeight="54.0" prefWidth="174.0" text="Inventory Page" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -17,38 +17,40 @@
                </font>
             </Label>
             <Button fx:id="logoutButton" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="Logout" />
-            <Label fx:id="showProductName" alignment="CENTER" layoutX="101.0" layoutY="65.0" prefHeight="384.0" prefWidth="101.0" style="-fx-border-color: black;" text="no type selected" />
-            <Label fx:id="showProductPrice" alignment="CENTER" layoutX="340.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
-            <Label fx:id="productLabel" alignment="CENTER" layoutX="101.0" layoutY="46.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="Item Name" />
-            <Label fx:id="productLabel1" alignment="CENTER" layoutX="340.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Sale Price/kg" />
-            <Label fx:id="showProductID" alignment="CENTER" layoutX="47.0" layoutY="65.0" prefHeight="384.0" prefWidth="54.0" style="-fx-border-color: black;" text="no type selected" />
-            <Label fx:id="productID" alignment="CENTER" layoutX="47.0" layoutY="46.0" prefHeight="19.0" prefWidth="54.0" style="-fx-border-color: black;" text="ID" />
-            <Label fx:id="showProductPrice1" alignment="CENTER" layoutX="446.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
-            <Label fx:id="productLabel11" alignment="CENTER" layoutX="446.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current" />
-            <Label fx:id="showProductPrice11" alignment="CENTER" layoutX="530.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
-            <Label fx:id="productLabel111" alignment="CENTER" layoutX="530.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired" />
+            <Label fx:id="managerNameLabel" alignment="CENTER" layoutX="65.0" layoutY="65.0" prefHeight="384.0" prefWidth="115.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="managerSPInventoryLabel" alignment="CENTER" layoutX="264.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="productLabel" alignment="CENTER" layoutX="65.0" layoutY="46.0" prefHeight="19.0" prefWidth="115.0" style="-fx-border-color: black;" text="Item Name" />
+            <Label fx:id="productLabel1" alignment="CENTER" layoutX="264.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Sale Price/kg" />
+            <Label fx:id="managerIDLabel" alignment="CENTER" layoutX="11.0" layoutY="65.0" prefHeight="384.0" prefWidth="54.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="productID" alignment="CENTER" layoutX="11.0" layoutY="46.0" prefHeight="19.0" prefWidth="54.0" style="-fx-border-color: black;" text="ID" />
+            <Label fx:id="managerCurrentLabel" alignment="CENTER" layoutX="348.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="productLabel11" alignment="CENTER" layoutX="348.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current" />
+            <Label fx:id="managerDesiredLabel" alignment="CENTER" layoutX="432.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+            <Label fx:id="productLabel111" alignment="CENTER" layoutX="432.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired" />
             <Button layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onAction="#backButton" style="-fx-border-color: blue;" text="Back" />
-            <Label fx:id="productLabel12" alignment="CENTER" layoutX="256.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Order Price/kg" />
-            <Label fx:id="showProductPrice2" alignment="CENTER" layoutX="256.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="productLabel12" alignment="CENTER" layoutX="180.0" layoutY="46.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Order Price/kg" />
+            <Label fx:id="managerOPInventoryLabel" alignment="CENTER" layoutX="180.0" layoutY="65.0" prefHeight="384.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
             <Pane layoutX="11.0" layoutY="447.0" prefHeight="60.0" prefWidth="617.0">
                <children>
-                  <TextField layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="43.0" />
-                  <TextField layoutX="57.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
-                  <TextField layoutX="156.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
-                  <TextField layoutX="240.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
-                  <TextField layoutX="340.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
-                  <TextField layoutX="424.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="managerIdInventoryField" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="43.0" />
+                  <TextField fx:id="managerNameInventoryField" layoutX="57.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="managerOPInventoryField" layoutX="156.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="managerSPInventoryField" layoutX="240.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="managerCurrentInventoryField" layoutX="340.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
+                  <TextField fx:id="managerDesiredInventoryField" layoutX="424.0" layoutY="31.0" prefHeight="25.0" prefWidth="84.0" />
                   <Label fx:id="productID1" alignment="CENTER" layoutX="14.0" layoutY="5.0" prefHeight="19.0" prefWidth="43.0" style="-fx-border-color: black;" text="ID" />
                   <Label fx:id="productLabel2" alignment="CENTER" layoutX="57.0" layoutY="5.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Item Name" />
                   <Label fx:id="productLabel121" alignment="CENTER" layoutX="156.0" layoutY="5.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Order Price/kg" />
                   <Label fx:id="productLabel13" alignment="CENTER" layoutX="240.0" layoutY="5.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Sale Price/kg" />
                   <Label fx:id="productLabel112" alignment="CENTER" layoutX="340.0" layoutY="5.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current" />
                   <Label fx:id="productLabel1111" alignment="CENTER" layoutX="424.0" layoutY="5.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired" />
-                  <Button layoutX="544.0" layoutY="2.0" mnemonicParsing="false" text="NEW" />
-                  <Button layoutX="523.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="UPDATE" />
+                  <Button layoutX="531.0" layoutY="19.0" mnemonicParsing="false" onAction="#managerNewItem" text="NEW ITEM" />
                </children>
             </Pane>
-            <Button layoutX="95.0" layoutY="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="REFRESH" />
+            <Button layoutX="533.0" layoutY="56.0" mnemonicParsing="false" onAction="#managerRefresh" prefHeight="25.0" prefWidth="84.0" text="REFRESH" />
+            <Button layoutX="522.0" layoutY="322.0" mnemonicParsing="false" onAction="#managerUpdateName" prefHeight="25.0" prefWidth="106.0" text="UPDATE NAME" />
+            <Button layoutX="522.0" layoutY="362.0" mnemonicParsing="false" onAction="#managerUpdatePrice" prefHeight="25.0" prefWidth="106.0" text="UPDATE PRICE" />
+            <Button layoutX="522.0" layoutY="406.0" mnemonicParsing="false" onAction="#managerQTY" prefHeight="27.0" prefWidth="106.0" text="UPDATE QTY" />
          </children>
       </AnchorPane>
    </children>

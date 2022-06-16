@@ -71,7 +71,7 @@ public class SampleController {
 	@FXML private TextField distributorField = new TextField();
 	@FXML private ScrollPane scrollPane = new ScrollPane();
 	
-	//manager invoice history page labels
+	//manager invoice history page
 	@FXML private Label managerIDLabel = new Label();
 	@FXML private Label managerNameLabel = new Label();
 	@FXML private Label managerSDLabel = new Label();
@@ -80,6 +80,23 @@ public class SampleController {
 	@FXML private Label managerDesiredLabel = new Label();
 	@FXML private TextField startDateField = new TextField();
 	@FXML private TextField endDateField = new TextField();	
+	
+	//manager inventory page
+	//@FXML private Label managerIdInventoryLabel = new Label();
+	//@FXML private Label managerNameInventoryLabel = new Label();
+	@FXML private Label managerOPInventoryLabel = new Label();
+	@FXML private Label managerSPInventoryLabel = new Label();
+	@FXML private Label managerCurrentInventoryLabel = new Label();
+	@FXML private Label managerDesiredInventoryLabel = new Label();
+	
+	@FXML private TextField managerIdInventoryField = new TextField();
+	@FXML private TextField managerNameInventoryField = new TextField();
+	@FXML private TextField managerOPInventoryField = new TextField();
+	@FXML private TextField managerSPInventoryField = new TextField();
+	@FXML private TextField managerCurrentInventoryField = new TextField();
+	@FXML private TextField managerDesiredInventoryField = new TextField();
+	
+	
 	
 	public String sale = "";
 	public Double saleTotal = 0.0;
@@ -486,6 +503,170 @@ public class SampleController {
 	 * @param event returns manager to selection window
 	 * @throws IOException if scene fails to launch
 	 */
+	
+	public void managerRefresh(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productID, productName, orderPrice, sellPrice, currentStock, desiredStock FROM products";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            
+            String IDs = "";
+            String names = "";
+            String orderPrice = "";
+            String salePrice = "";
+            String currentStock = "";
+            String desiredStock = "";
+            
+            while (queryOutput.next()) {
+            	IDs += queryOutput.getString("productID") + "\n";
+            	names += queryOutput.getString("productName") + "\n";
+            	orderPrice += queryOutput.getString("orderPrice") + "\n";
+            	salePrice += queryOutput.getString("sellPrice") + "\n";
+            	currentStock += queryOutput.getString("currentStock") + "\n";
+            	desiredStock += queryOutput.getString("desiredStock") + "\n";
+            }
+            
+            managerIDLabel.setText(IDs);
+            managerNameLabel.setText(names);
+            managerOPInventoryLabel.setText(orderPrice);
+            managerSPInventoryLabel.setText(salePrice);
+            managerCurrentLabel.setText(currentStock);
+            managerDesiredLabel.setText(desiredStock);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}
+	
+	//TODO
+	public void managerUpdateName(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "UPDATE products SET productName = " + managerNameInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}
+	
+	//TODO
+	public void managerUpdatePrice(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "UPDATE products SET sellPrice = " + managerSPInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+		
+	}
+	
+	//TODO
+	public void managerQTY(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "UPDATE products SET currentStock = " + managerCurrentInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}
+	
+	public void managerNewItem(ActionEvent event) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "INSERT INTO products VALUES ('" + managerIdInventoryField.getText() + "', '" + managerNameInventoryField.getText()
+        	+ "', '" + managerOPInventoryField.getText() + "', '" + managerSPInventoryField.getText() + "', '" +
+        	managerCurrentInventoryField.getText() + "', '" + managerDesiredInventoryField.getText() + "')";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }     
+        
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Add Item Completed");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
+	}
+	
 	public void backButton(ActionEvent event) throws IOException {		
 		//System.out.println("Launched manager order page");
 		Parent root = FXMLLoader.load(getClass().getResource("managerScene.fxml"));
@@ -494,6 +675,7 @@ public class SampleController {
 		stage.setScene(scene);
 		stage.show(); 		
 	}	
+	
 	/**
 	 * 
 	 * @param event launches the logout alert prompt
@@ -638,12 +820,7 @@ public class SampleController {
 		
 		//launch logout alert from either interface
 		if( alert.showAndWait().get() == ButtonType.OK) {
-//			Parent root = FXMLLoader.load(getClass().getResource("homePageGUI.fxml"));
-//			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//			System.out.println("You have successfully logged out");
-//			scene = new Scene(root);
-//			stage.setScene(scene);
-//			stage.show(); 		
+		
 		}
 	}
 	
