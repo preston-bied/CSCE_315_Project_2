@@ -248,16 +248,56 @@ public class SampleController {
 	 * 
 	 * @param event launches manager orders scene interface
 	 * @throws IOException if scene fails to launch
+	 * TODO FINISH ME!!!
 	 */
-	public void managerOrders(ActionEvent event) throws IOException {
+	public void managerOrders(ActionEvent event) throws IOException {		
 		//System.out.println("Launched manager order page");
 		Parent root = FXMLLoader.load(getClass().getResource("managerCreateOrder.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
-		stage.show(); 
+		stage.show(); 		
+	}
+	/**
+	 * 
+	 * @param event opens manager inventory scene
+	 * @throws IOException if scene fails to launch
+	 */
+	public void managerInventoryLaunch(ActionEvent event) throws IOException {		
+		//System.out.println("Launched manager order page");
+		Parent root = FXMLLoader.load(getClass().getResource("managerInventory.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show(); 		
+	}
+	/**
+	 * 
+	 * @param event opens manager history scene 
+	 * @throws IOException if scene fails to launch
+	 */
+	public void managerHistoryLaunch(ActionEvent event) throws IOException {		
+		//System.out.println("Launched manager order page");
+		Parent root = FXMLLoader.load(getClass().getResource("managerHistory.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show(); 	
 	}
 	
+	/**
+	 * 
+	 * @param event returns manager to selection window
+	 * @throws IOException if scene fails to launch
+	 */
+	public void backButton(ActionEvent event) throws IOException {		
+		//System.out.println("Launched manager order page");
+		Parent root = FXMLLoader.load(getClass().getResource("managerScene.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show(); 		
+	}	
 	/**
 	 * 
 	 * @param event launches the logout alert prompt
@@ -274,7 +314,9 @@ public class SampleController {
 			Parent root = FXMLLoader.load(getClass().getResource("homePageGUI.fxml"));
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			System.out.println("You have successfully logged out");
-			stage.close();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show(); 		
 		}
 	}
 	
@@ -392,6 +434,21 @@ public class SampleController {
         runningTotal.setText("$0");
         addItemField.setText("");
         weightField.setText("");
+        
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Sale Completed");
+		//alert.setContentText("");	
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+//			Parent root = FXMLLoader.load(getClass().getResource("homePageGUI.fxml"));
+//			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//			System.out.println("You have successfully logged out");
+//			scene = new Scene(root);
+//			stage.setScene(scene);
+//			stage.show(); 		
+		}
 	}
 	
 	/**
@@ -514,9 +571,55 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        runningOrderTotal.setText("$0");
-        orderIDField.setText("");
-        orderWeightField.setText("");
-        distributorField.setText("");
+ 
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Order Completed");
+		//alert.setContentText("");	
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+		       runningOrderTotal.setText("$0");
+		        orderIDField.setText("");
+		        orderWeightField.setText("");
+		        distributorField.setText("");
+		}
 	}
+
+	public void populateInventory( ActionEvent event ) throws IOException {
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, productID, currentStock, desiredStock FROM products";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            
+            String productsList = "";
+            while (queryOutput.next()) {
+            	productsList += queryOutput.getString("productID") + " | " + queryOutput.getString("productName") + " | curr: " 
+                + queryOutput.getString("currentStock") + " | des: " + queryOutput.getString("desiredStock") + "\n";
+            	
+            }
+         // System.out.println(productsList);
+            orderItemSPLabel.setText(productsList);
+            scrollPane.setContent(orderItemSPLabel);
+           
+        } catch ( Exception e ) {
+        	e.printStackTrace();
+        	System.err.println(e.getClass().getName()+": "+e.getMessage());
+        	System.exit(0);
+        }
+	}
+
+
+
 }// end SampleController class

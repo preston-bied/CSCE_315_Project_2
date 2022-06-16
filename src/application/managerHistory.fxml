@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <children>
+      <AnchorPane accessibleRole="MENU_BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="641.0" style="-fx-border-color: black;">
+         <children>
+            <Pane layoutX="442.0" layoutY="139.0" prefHeight="68.0" prefWidth="192.0" style="-fx-border-color: black;">
+               <children>
+                  <Button layoutX="136.0" layoutY="26.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Button" />
+                  <TextField fx:id="orderIDField" layoutX="67.0" layoutY="2.0" prefHeight="25.0" prefWidth="59.0" />
+                  <TextField fx:id="orderWeightField" layoutX="67.0" layoutY="39.0" prefHeight="25.0" prefWidth="59.0" />
+                  <Label layoutX="2.0" layoutY="42.0" style="-fx-border-color: black;" text="End Date" />
+                  <Label layoutY="5.0" style="-fx-border-color: black;" text="Start Date" />
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="238.0" prefHeight="54.0" prefWidth="174.0" text="Invoice History Page" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="logoutButton" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="Logout" />
+            <Pane accessibleRole="MENU_BUTTON" layoutX="442.0" layoutY="55.0" prefHeight="68.0" prefWidth="192.0" style="-fx-border-color: black;">
+               <children>
+                  <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierChickenQuery" text="Chicken" />
+                  <Button layoutX="78.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierBeefQuery" text="Beef" />
+                  <Button layoutX="126.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierPorkQuery" text="Pork" />
+                  <Label layoutX="42.0" text="select type of meat" />
+               </children>
+            </Pane>
+            <Label fx:id="showProductName" alignment="CENTER" layoutX="68.0" layoutY="75.0" prefHeight="427.0" prefWidth="101.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="showProductPrice" alignment="CENTER" layoutX="169.0" layoutY="75.0" prefHeight="427.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="productLabel" alignment="CENTER" layoutX="68.0" layoutY="55.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="Items" />
+            <Label fx:id="productLabel1" alignment="CENTER" layoutX="169.0" layoutY="55.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Price/kg" />
+            <Label fx:id="showProductID" alignment="CENTER" layoutX="14.0" layoutY="75.0" prefHeight="427.0" prefWidth="54.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="productID" alignment="CENTER" layoutX="14.0" layoutY="55.0" prefHeight="19.0" prefWidth="54.0" style="-fx-border-color: black;" text="ID" />
+            <Label fx:id="showProductPrice1" alignment="CENTER" layoutX="253.0" layoutY="75.0" prefHeight="427.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="productLabel11" alignment="CENTER" layoutX="253.0" layoutY="55.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current" />
+            <Label fx:id="showProductPrice11" alignment="CENTER" layoutX="337.0" layoutY="75.0" prefHeight="427.0" prefWidth="84.0" style="-fx-border-color: black;" text="no type selected" />
+            <Label fx:id="productLabel111" alignment="CENTER" layoutX="337.0" layoutY="55.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired" />
+            <Button layoutX="31.0" layoutY="13.0" mnemonicParsing="false" onAction="#backButton" style="-fx-border-color: blue;" text="Back" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

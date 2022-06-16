@@ -67,7 +67,7 @@ public class Main extends Application {
 	      //closing the connection
 	      try {
 	        conn.close();
-	        JOptionPane.showMessageDialog(null,"Connection Closed.");
+	       // JOptionPane.showMessageDialog(null,"Connection Closed.");
 	      } catch(Exception e) {
 	        JOptionPane.showMessageDialog(null,"Connection NOT Closed.");
 	      }

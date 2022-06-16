@@ -9,6 +9,7 @@
 
 <AnchorPane accessibleRole="MENU_BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="641.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
+      <Pane layoutX="292.0" layoutY="136.0" prefHeight="364.0" prefWidth="331.0" />
       <Label alignment="CENTER" layoutX="238.0" prefHeight="54.0" prefWidth="174.0" text="Welcome Cashier" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="17.0" />
