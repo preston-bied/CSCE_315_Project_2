@@ -1,10 +1,12 @@
+package application;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class queryFunctions {
+public class queryActions {
 
-    public static String salesReport(String startDate, String endDate) {
+    public static String[] salesReport(String startDate, String endDate) {
         Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -13,7 +15,7 @@ public class queryFunctions {
         dbSetup myCredentials = new dbSetup(); 
 
         String sql = "SELECT saleInvoiceID, saleDate FROM saleInvoiceHistory WHERE saleDate >= '" + startDate + "' AND saleDate <= '" + endDate + "'";
-        Strin[] output = new String[3];
+        String[] output = new String[3];
         
         // connect to database
         try {
@@ -32,7 +34,7 @@ public class queryFunctions {
 
             Vector<String> productIDs = new Vector<>();
             Vector<String> quantitiesSold = new Vector<>();
-            for (int i = 0; i < saleInvoiceIDS.size(); i++) {
+            for (int i = 0; i < saleInvoiceIDs.size(); i++) {
                 sql = "SELECT productID, quantitySold FROM saleLineItems WHERE saleInvoiceID = " + saleInvoiceIDs.elementAt(i);
                 queryOutput = statement.executeQuery(sql);
                 while (queryOutput.next()) {
@@ -49,7 +51,7 @@ public class queryFunctions {
                 queryOutput = statement.executeQuery(sql);
                 while (queryOutput.next()) {
                     SproductNames += queryOutput.getString("productName") + "\n";
-                    SproductIds += productIDs.elementAt(i) + "\n";
+                    SproductIDs += productIDs.elementAt(i) + "\n";
                     SquantitiesSold += quantitiesSold.elementAt(i) + "\n";
                 }
             }
@@ -66,7 +68,7 @@ public class queryFunctions {
         return output;
     }
 
-    public static String excessReport(String startDate, String endDate) {
+    public static String[] excessReport(String startDate, String endDate) {
         Connection conn = null;
         String teamNumber = "2";
         String sectionNumber = "950";
@@ -142,11 +144,11 @@ public class queryFunctions {
             output[1] = excessNames;
             output[2] = excessCurrent;
             output[3] = excessDesired;
-            return output;
     } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
     }
     return output;
+    }
 }
