@@ -551,7 +551,7 @@ public class SampleController {
         }
 	}
 	
-	//TODO
+	
 	public void managerUpdateName(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -560,7 +560,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "UPDATE products SET productName = " + managerNameInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        String sql = "UPDATE products SET productName = '" + managerNameInventoryField.getText() + "' WHERE productID = " + managerIdInventoryField.getText();
         
         // connect to database
         try {
@@ -574,9 +574,22 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Name Successfully Updated");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
 	}
 	
-	//TODO
+	
 	public void managerUpdatePrice(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -585,7 +598,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "UPDATE products SET sellPrice = " + managerSPInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        String sql = "UPDATE products SET sellPrice = '" + managerSPInventoryField.getText() + "' WHERE productID = " + managerIdInventoryField.getText();
         
         // connect to database
         try {
@@ -599,10 +612,23 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Item Price Successfully Updated");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
 		
 	}
 	
-	//TODO
+	
 	public void managerQTY(ActionEvent event) throws IOException {
 		Connection conn = null;
         String teamNumber = "2";
@@ -611,7 +637,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "UPDATE products SET currentStock = " + managerCurrentInventoryField.getText() + " WHERE productID = " + managerIdInventoryField.getText();
+        String sql = "UPDATE products SET currentStock = '" + managerCurrentInventoryField.getText() + "' WHERE productID = " + managerIdInventoryField.getText();
         
         // connect to database
         try {
@@ -625,6 +651,19 @@ public class SampleController {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmed");
+		alert.setHeaderText("Quantity Successfully Updated");
+		
+		//launch logout alert from either interface
+		if( alert.showAndWait().get() == ButtonType.OK) {
+	        managerIdInventoryField.setText("");
+	        managerNameInventoryField.setText("");
+	        managerOPInventoryField.setText("");
+	        managerSPInventoryField.setText("");
+	        managerCurrentInventoryField.setText("");
+	        managerDesiredInventoryField.setText("");
+		}
 	}
 	
 	public void managerNewItem(ActionEvent event) throws IOException {
@@ -715,7 +754,7 @@ public class SampleController {
         productIDs.addElement(productID);
         Double weight = Double.parseDouble( weightField.getText() );
         weights.addElement(weight);
-        String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
+        String sql = "SELECT productName, sellPrice, currentStock FROM products WHERE productID = " + productID;
         
         try {
             conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
