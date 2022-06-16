@@ -37,9 +37,9 @@
       </Pane>
       <Pane accessibleRole="MENU_BUTTON" layoutX="28.0" layoutY="62.0" prefHeight="68.0" prefWidth="185.0" style="-fx-border-color: black;">
          <children>
-            <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierChickenQuery" text="Chicken" />
-            <Button layoutX="78.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierBeefQuery" text="Beef" />
-            <Button layoutX="126.0" layoutY="23.0" mnemonicParsing="false" onAction="#cashierPorkQuery" text="Pork" />
+            <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#managerChickenQuery" text="Chicken" />
+            <Button layoutX="78.0" layoutY="23.0" mnemonicParsing="false" onAction="#managerBeefQuery" text="Beef" />
+            <Button layoutX="126.0" layoutY="23.0" mnemonicParsing="false" onAction="#managerPorkQuery" text="Pork" />
             <Label layoutX="42.0" text="select type of meat" />
          </children>
       </Pane>
@@ -49,9 +49,9 @@
       <Label fx:id="productLabel1" alignment="CENTER" layoutX="183.0" layoutY="137.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Price/kg" />
       <Label fx:id="showProductID" alignment="CENTER" layoutX="28.0" layoutY="154.0" prefHeight="346.0" prefWidth="54.0" style="-fx-border-color: black;" text="empty" />
       <Label fx:id="productID" alignment="CENTER" layoutX="28.0" layoutY="137.0" prefHeight="19.0" prefWidth="54.0" style="-fx-border-color: black;" text="ID" />
-      <Label fx:id="showProductPrice1" alignment="CENTER" layoutX="265.0" layoutY="154.0" prefHeight="346.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+      <Label fx:id="showProductCurrentStock" alignment="CENTER" layoutX="265.0" layoutY="154.0" prefHeight="346.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
       <Label fx:id="productLabel11" alignment="CENTER" layoutX="265.0" layoutY="137.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Current" />
-      <Label fx:id="showProductPrice11" alignment="CENTER" layoutX="349.0" layoutY="156.0" prefHeight="346.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
+      <Label fx:id="showProductDesiredStock" alignment="CENTER" layoutX="349.0" layoutY="156.0" prefHeight="346.0" prefWidth="84.0" style="-fx-border-color: black;" text="empty" />
       <Label fx:id="productLabel111" alignment="CENTER" layoutX="349.0" layoutY="137.0" prefHeight="19.0" prefWidth="84.0" style="-fx-border-color: black;" text="Desired" />
       <Button layoutX="28.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButton" style="-fx-border-color: blue;" text="Back" />
    </children>

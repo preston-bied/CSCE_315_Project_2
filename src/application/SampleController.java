@@ -57,6 +57,8 @@ public class SampleController {
 	@FXML private Label showProductName = new Label();
 	@FXML private Label showProductPrice = new Label();
 	@FXML private Label showProductID = new Label();
+	@FXML private Label showProductCurrentStock = new Label();
+	@FXML private Label showProductDesiredStock = new Label();	
 	@FXML private Label saleItems = new Label();
 	@FXML private Label orderItems = new Label();
 	@FXML private Label runningTotal = new Label();
@@ -230,6 +232,141 @@ public class SampleController {
             System.exit(0);
         }
 	}	
+	
+	public void managerChickenQuery(ActionEvent event) throws IOException, SQLException {
+		
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, orderPrice, productID, currentStock, desiredStock FROM products WHERE productName LIKE 'Chicken%' OR productName LIKE '%Chicken'";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            String product = "";
+            String price = "";
+            String ID = "";
+            String currStock = "";
+            String desirStock = "";
+            while (queryOutput.next()) {
+            	String productName = queryOutput.getString("productName");
+            	String orderPrice = queryOutput.getString("orderPrice");
+            	String productID = queryOutput.getString("productID");
+                String currentStock = queryOutput.getString("currentStock");
+                String desiredStock = queryOutput.getString("desiredStock");
+            	product += productName + "\n";
+            	price += orderPrice + "\n";
+            	ID += productID + "\n";
+            	currStock += currentStock + "\n";
+            	desirStock += desiredStock + "\n";
+            	
+            }
+            showProductName.setText(product);
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
+            showProductCurrentStock.setText(currStock);
+            showProductDesiredStock.setText(desirStock);
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}	
+	
+	/**
+	 * 
+	 * @param event pulls up beef info for cashier interface
+	 * @throws IOException if scene fails to launch
+	 */
+	public void managerBeefQuery(ActionEvent event) throws IOException {
+		
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            String product = "";
+            String price = "";
+            String ID = "";
+            while (queryOutput.next()) {
+            	String productName = queryOutput.getString("productName");
+            	String sellPrice = queryOutput.getString("sellPrice");
+            	String productID = queryOutput.getString("productID");
+            	product += productName + "\n";
+            	price += sellPrice + "\n";
+            	ID += productID + "\n";
+            }
+            showProductName.setText(product);
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+	}	
+	
+	/**
+	 * 
+	 * @param event pulls up beef info for cashier interface
+	 * @throws IOException if scene fails to launch
+	 */
+	public void managerPorkQuery(ActionEvent event) throws IOException {
+		
+		Connection conn = null;
+        String teamNumber = "2";
+        String sectionNumber = "950";
+        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+        
+        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
+        
+        // connect to database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            
+            Statement statement = conn.createStatement();
+            ResultSet queryOutput = statement.executeQuery(sql);
+            String product = "";
+            String price = "";
+            String ID = "";
+            while (queryOutput.next()) {
+            	String productName = queryOutput.getString("productName");
+            	String sellPrice = queryOutput.getString("sellPrice");
+            	String productID = queryOutput.getString("productID");
+            	product += productName + "\n";
+            	price += sellPrice + "\n";
+            	ID += productID + "\n";
+            }
+            showProductName.setText(product);
+            showProductPrice.setText(price);
+            showProductID.setText(ID);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}
 	
 	/**
 	 * 
