@@ -41,15 +41,20 @@ public class queryFunctions {
                 }
             }
 
+            String productNames = "";
+            String productIDs = "";
+            String quantitiesSold = "";
             for (int i = 0; i < productIDs.size(); i++) {
                 sql = "SELECT productName FROM products WHERE productID = " + productIDs.elementAt(i);
                 queryOutput = statement.executeQuery(sql);
-                String productName = "";
                 while (queryOutput.next()) {
-                    productName = queryOutput.getString("productName");
-                    output += productName + " | " + quantitiesSold.elementAt(i);
+                    productNames += queryOutput.getString("productName") + "\n";
+                    productIds += productIDs.elementAt(i) + "\n";
+                    quantitiesSold += quantitiesSold.elementAt(i) + "\n";
                 }
             }
+
+            String[] output = {productIDs, productNames, quantitiesSold};
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
