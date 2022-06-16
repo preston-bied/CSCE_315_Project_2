@@ -2,11 +2,6 @@ import java.sql.*;
 
 public class queryFunctions {
 
-    // get all items from a table with a certain word
-    import java.sql.*;
-
-public class queryFunctions {
-
     public static String salesReport(String startDate, String endDate) {
         Connection conn = null;
         String teamNumber = "2";
