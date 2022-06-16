@@ -30,14 +30,14 @@
       <Label fx:id="productLabel1" alignment="CENTER" layoutX="509.0" layoutY="140.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="Price/kg" />
       <Label fx:id="showProductID" alignment="CENTER" layoutX="307.0" layoutY="157.0" prefHeight="340.0" prefWidth="101.0" style="-fx-border-color: black;" text="no type selected" />
       <Label fx:id="productID" alignment="CENTER" layoutX="307.0" layoutY="140.0" prefHeight="17.0" prefWidth="101.0" style="-fx-border-color: black;" text="ID" />
-      <TextField fx:id="addItemField" layoutX="43.0" layoutY="159.0" prefHeight="25.0" prefWidth="65.0" />
-      <Button fx:id="addItemButton" layoutX="205.0" layoutY="159.0" mnemonicParsing="false" onAction="#addItem" text="Add Item" />
-      <Label fx:id="saleItems" alignment="CENTER" layoutX="40.0" layoutY="190.0" prefHeight="306.0" prefWidth="141.0" style="-fx-border-color: black;" text="no type selected" />
-      <TextField fx:id="weightField" layoutX="116.0" layoutY="159.0" prefHeight="25.0" prefWidth="65.0" />
-      <Label fx:id="productID1" alignment="CENTER" layoutX="43.0" layoutY="140.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="ID" />
-      <Label alignment="CENTER" layoutX="116.0" layoutY="140.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="weight" />
-      <Button layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onAction="#completeSale" text="Complete Sale" />
-      <Label fx:id="runningTotal" alignment="CENTER" layoutX="187.0" layoutY="426.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" />
-      <Label fx:id="runningTotal1" alignment="CENTER" layoutX="187.0" layoutY="407.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" text="Total" />
+      <TextField fx:id="addItemField" layoutX="48.0" layoutY="156.0" prefHeight="25.0" prefWidth="65.0" />
+      <Button fx:id="addItemButton" layoutX="211.0" layoutY="147.0" mnemonicParsing="false" onAction="#addItem" text="Add Item" />
+      <Label fx:id="saleItems" alignment="CENTER" layoutX="46.0" layoutY="191.0" prefHeight="306.0" prefWidth="141.0" style="-fx-border-color: black;" text="cart is empty" />
+      <TextField fx:id="weightField" layoutX="121.0" layoutY="156.0" prefHeight="25.0" prefWidth="65.0" />
+      <Label fx:id="productID1" alignment="CENTER" layoutX="48.0" layoutY="137.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="ID" />
+      <Label alignment="CENTER" layoutX="121.0" layoutY="137.0" prefHeight="19.0" prefWidth="65.0" style="-fx-border-color: black;" text="weight" />
+      <Button layoutX="198.0" layoutY="456.0" mnemonicParsing="false" onAction="#completeSale" text="Complete Sale" />
+      <Label fx:id="runningTotal" alignment="CENTER" layoutX="193.0" layoutY="426.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" />
+      <Label fx:id="runningTotal1" alignment="CENTER" layoutX="193.0" layoutY="407.0" prefHeight="17.0" prefWidth="102.0" style="-fx-border-color: black;" text="Total" />
    </children>
 </AnchorPane>
