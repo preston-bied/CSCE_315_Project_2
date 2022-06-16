@@ -474,80 +474,12 @@ public class SampleController {
 	
 	
 	public void managerRestockReport(ActionEvent event ) throws IOException {
-//		Connection conn = null;
-//        String teamNumber = "2";
-//        String sectionNumber = "950";
-//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-//        dbSetup myCredentials = new dbSetup(); 
-//		
-//		Connection conn = null;
-//        String teamNumber = "2";
-//        String sectionNumber = "950";
-//        String dbName = "csce315" + sectionNumber + "_" + teamNumber + "db";
-//        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-//        dbSetup myCredentials = new dbSetup(); 
-//        
-//        String startDate = startDateField.getText();
-//        String endDate = startDateField.getText();
-//        
-//        //FIX SQL COMMAND FOR "sales report button"
-//        //String sql = "SELECT productName, sellPrice FROM products WHERE productID = " + productID;
-//        
-//        try {
-//            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-//            
-//            Statement statement = conn.createStatement();
-//            ResultSet queryOutput = statement.executeQuery(sql);
-//            
-//            String productName ="";
-//            String productPricePerKg = "";
-//            
-//            while (queryOutput.next()) {
-//            	productName = queryOutput.getString("productName");
-//            	productPricePerKg = queryOutput.getString("sellPrice");
-//            }
-//            
-//            Double totalPrice = Double.parseDouble(productPricePerKg.substring(1)) * weight;
-//           // DecimalFormat df = new DecimalFormat("#.##");
-//           // totalPrice = Double.parseDouble(df.format(totalPrice));
-//            saleTotal += totalPrice;
-//            runningTotal.setText("$" + saleTotal);
-//            sql = "UPDATE products SET currentStock = currentStock - " + weight + " WHERE productID = " + productID;
-//            statement.execute(sql);
-//            
-//            sale += productName + " | $" + totalPrice + "\n";
-//            saleItems.setText(sale);
-//            
-//            if (currLineItemID == 0) {
-//            	 sql = "SELECT MAX (saleLineID) FROM saleLineItems";
-//                 queryOutput = statement.executeQuery(sql);
-//              
-//                 String maxID = "";
-//                 while (queryOutput.next()) {
-//                 	maxID = queryOutput.getString("max");
-//                 }
-//                 currLineItemID = Integer.parseInt(maxID);
-//            }
-//            currLineItemID += 1;
-//            lineItemIDs.addElement(currLineItemID);
-//            
-//            if (currSaleInvoiceID == 0) {
-//            	sql = "SELECT MAX (saleInvoiceID) FROM saleLineItems";
-//            	queryOutput = statement.executeQuery(sql);
-//            	String maxSaleInvoiceID = "";
-//            	while (queryOutput.next()) {
-//            		maxSaleInvoiceID = queryOutput.getString("max");
-//            	}
-//            	currSaleInvoiceID = Integer.parseInt(maxSaleInvoiceID) + 1;
-//            	
-//            }
-//        } catch ( Exception e ) {
-//            e.printStackTrace();
-//            System.err.println(e.getClass().getName()+": "+e.getMessage());
-//            System.exit(0);
-//        }
-//        
+		managerQuantityLabel.setText("");
+		String[] columnVals = queryActions.restockReport(startDateField.getText(), endDateField.getText());
+		managerIDLabel.setText(columnVals[0]);
+		managerNameLabel.setText(columnVals[1]);
+		managerCurrentLabel.setText(columnVals[2]);
+		managerDesiredLabel.setText(columnVals[3]);
 	}
 	/**
 	 * 
