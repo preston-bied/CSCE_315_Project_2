@@ -98,7 +98,7 @@ public class queryActions {
                 queryOutput = statement.executeQuery(sql);
                 while (queryOutput.next()) {
                     productIDs.addElement(queryOutput.getString("productID"));
-                    quantitiesSold.addElement(queryOutput.getString("quantitiesSold"));
+                    quantitiesSold.addElement(queryOutput.getString("quantitySold"));
                 }
             }
 
