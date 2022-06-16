@@ -85,7 +85,7 @@ public class SampleController {
 	public Double orderTotal = 0.0;
 	public int currOrderInvoiceID = 0;
 	public int currOrderLineItemID = 0;
-	public int orderEmployeeID = 1;
+	public int orderEmployeeID = 1; 
 	public String currOrderDate = "2022-06-15";
 	public Vector<String> orderProductIDs = new Vector<>();
 	public Vector<Integer> orderLineItemIDs = new Vector<>();
@@ -255,6 +255,7 @@ public class SampleController {
             String ID = "";
             String currStock = "";
             String desirStock = "";
+            
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
             	String orderPrice = queryOutput.getString("orderPrice");
@@ -295,7 +296,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
+        String sql = "SELECT productName, orderPrice, productID, currentStock, desiredStock FROM products WHERE productName LIKE 'Beef%' OR productName LIKE '%Beef'";
         
         // connect to database
         try {
@@ -306,17 +307,27 @@ public class SampleController {
             String product = "";
             String price = "";
             String ID = "";
+            String currStock = "";
+            String desirStock = "";
+            
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
-            	String sellPrice = queryOutput.getString("sellPrice");
+            	String orderPrice = queryOutput.getString("orderPrice");
             	String productID = queryOutput.getString("productID");
+                String currentStock = queryOutput.getString("currentStock");
+                String desiredStock = queryOutput.getString("desiredStock");
             	product += productName + "\n";
-            	price += sellPrice + "\n";
+            	price += orderPrice + "\n";
             	ID += productID + "\n";
+            	currStock += currentStock + "\n";
+            	desirStock += desiredStock + "\n";
+            	
             }
             showProductName.setText(product);
             showProductPrice.setText(price);
             showProductID.setText(ID);
+            showProductCurrentStock.setText(currStock);
+            showProductDesiredStock.setText(desirStock);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -339,7 +350,7 @@ public class SampleController {
         String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
         dbSetup myCredentials = new dbSetup(); 
         
-        String sql = "SELECT productName, sellPrice, productID FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
+        String sql = "SELECT productName, orderPrice, productID, currentStock, desiredStock FROM products WHERE productName LIKE 'Pork%' OR productName LIKE '%Pork'";
         
         // connect to database
         try {
@@ -350,17 +361,27 @@ public class SampleController {
             String product = "";
             String price = "";
             String ID = "";
+            String currStock = "";
+            String desirStock = "";
+            
             while (queryOutput.next()) {
             	String productName = queryOutput.getString("productName");
-            	String sellPrice = queryOutput.getString("sellPrice");
+            	String orderPrice = queryOutput.getString("orderPrice");
             	String productID = queryOutput.getString("productID");
+                String currentStock = queryOutput.getString("currentStock");
+                String desiredStock = queryOutput.getString("desiredStock");
             	product += productName + "\n";
-            	price += sellPrice + "\n";
+            	price += orderPrice + "\n";
             	ID += productID + "\n";
+            	currStock += currentStock + "\n";
+            	desirStock += desiredStock + "\n";
+            	
             }
             showProductName.setText(product);
             showProductPrice.setText(price);
             showProductID.setText(ID);
+            showProductCurrentStock.setText(currStock);
+            showProductDesiredStock.setText(desirStock);
         } catch ( Exception e ) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
